@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model organizations {
+  id         String   @id @default(uuid())
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  memberships organization_memberships[]
+  assets      assets[]
+  jobs        jobs[]
+  events      events[]
+  maintenance maintenance_events[]
+}
+
+model users {
+  id         String   @id
+  email      String
+  created_at DateTime @default(now())
+
+  memberships organization_memberships[]
+}
+
+model organization_memberships {
+  id              String          @id @default(uuid())
+  organization_id String
+  user_id         String
+  role            membership_role
+  created_at      DateTime        @default(now())
+
+  organization organizations @relation(fields: [organization_id], references: [id])
+  user         users         @relation(fields: [user_id], references: [id])
+
+  @@unique([organization_id, user_id])
+}
+
+enum membership_role {
+  owner
+  admin
+  manager
+  technician
+  viewer
+}
+
+model assets {
+  id              String       @id @default(uuid())
+  organization_id String
+  name            String
+  asset_type      String
+  status          asset_status
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+
+  organization organizations        @relation(fields: [organization_id], references: [id])
+  assignments  job_assignments[]
+  maintenance  maintenance_events[]
+}
+
+enum asset_status {
+  available
+  staged
+  deployed
+  maintenance
+  offline
+}
+
+model jobs {
+  id              String     @id @default(uuid())
+  organization_id String
+  title           String
+  description     String?
+  status          job_status
+  created_at      DateTime   @default(now())
+  updated_at      DateTime   @updatedAt
+
+  organization organizations     @relation(fields: [organization_id], references: [id])
+  assignments  job_assignments[]
+}
+
+enum job_status {
+  draft
+  planned
+  staging
+  ready
+  in_progress
+  blocked
+  completed
+  archived
+}
+
+model job_assignments {
+  id       String @id @default(uuid())
+  job_id   String
+  asset_id String
+
+  job   jobs   @relation(fields: [job_id], references: [id])
+  asset assets @relation(fields: [asset_id], references: [id])
+
+  @@unique([job_id, asset_id])
+}
+
+model maintenance_events {
+  id              String             @id @default(uuid())
+  organization_id String
+  asset_id        String
+  description     String
+  status          maintenance_status
+  created_at      DateTime           @default(now())
+
+  organization organizations @relation(fields: [organization_id], references: [id])
+  asset        assets        @relation(fields: [asset_id], references: [id])
+}
+
+enum maintenance_status {
+  open
+  scheduled
+  in_progress
+  completed
+}
+
+model events {
+  id              String   @id @default(uuid())
+  organization_id String
+  entity_type     String
+  entity_id       String
+  event_type      String
+  payload_json    Json?
+  user_id         String?
+  created_at      DateTime @default(now())
+
+  organization organizations @relation(fields: [organization_id], references: [id])
+}
