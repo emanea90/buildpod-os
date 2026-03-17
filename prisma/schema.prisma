@@ -18,11 +18,13 @@ model organizations {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  memberships organization_memberships[]
-  assets      assets[]
-  jobs        jobs[]
-  events      events[]
-  maintenance maintenance_events[]
+  memberships      organization_memberships[]
+  assets           assets[]
+  jobs             jobs[]
+  events           events[]
+  maintenance      maintenance_events[]
+  locations        locations[]
+  staging_sessions staging_sessions[]
 }
 
 model users {
@@ -30,7 +32,8 @@ model users {
   email      String
   created_at DateTime @default(now())
 
-  memberships organization_memberships[]
+  memberships              organization_memberships[]
+  started_staging_sessions staging_sessions[]
 }
 
 model organization_memberships {
@@ -63,9 +66,10 @@ model assets {
   created_at      DateTime     @default(now())
   updated_at      DateTime     @updatedAt
 
-  organization organizations        @relation(fields: [organization_id], references: [id])
-  assignments  job_assignments[]
-  maintenance  maintenance_events[]
+  organization     organizations        @relation(fields: [organization_id], references: [id])
+  assignments      job_assignments[]
+  maintenance      maintenance_events[]
+  staging_sessions staging_sessions[]
 }
 
 enum asset_status {
@@ -85,8 +89,9 @@ model jobs {
   created_at      DateTime   @default(now())
   updated_at      DateTime   @updatedAt
 
-  organization organizations     @relation(fields: [organization_id], references: [id])
-  assignments  job_assignments[]
+  organization     organizations      @relation(fields: [organization_id], references: [id])
+  assignments      job_assignments[]
+  staging_sessions staging_sessions[]
 }
 
 enum job_status {
@@ -141,4 +146,98 @@ model events {
   created_at      DateTime @default(now())
 
   organization organizations @relation(fields: [organization_id], references: [id])
+}
+
+enum location_type {
+  warehouse
+  shop
+  jobsite
+  trailer_bay
+  hangar
+  yard
+  other
+}
+
+model locations {
+  id                 String        @id @default(uuid())
+  organization_id    String
+  name               String
+  location_type      location_type
+  parent_location_id String?
+  created_at         DateTime      @default(now())
+  updated_at         DateTime      @updatedAt
+
+  organization organizations @relation(fields: [organization_id], references: [id])
+  parent       locations?    @relation("location_hierarchy", fields: [parent_location_id], references: [id])
+  children     locations[]   @relation("location_hierarchy")
+
+  @@index([organization_id])
+  @@index([parent_location_id])
+}
+
+enum staging_status {
+  draft
+  in_progress
+  verified
+  failed
+  completed
+}
+
+enum staging_item_type {
+  asset
+  inventory
+  checklist
+}
+
+enum verification_status {
+  pending
+  verified
+  missing
+  issue
+}
+
+model staging_sessions {
+  id                 String         @id @default(uuid())
+  organization_id    String
+  target_asset_id    String
+  target_job_id      String?
+  started_by_user_id String?
+  status             staging_status @default(draft)
+  notes              String?
+  started_at         DateTime       @default(now())
+  completed_at       DateTime?
+  created_at         DateTime       @default(now())
+  updated_at         DateTime       @updatedAt
+
+  organization organizations           @relation(fields: [organization_id], references: [id])
+  target_asset assets                  @relation(fields: [target_asset_id], references: [id])
+  target_job   jobs?                   @relation(fields: [target_job_id], references: [id])
+  started_by   users?                  @relation(fields: [started_by_user_id], references: [id])
+  items        staging_session_items[]
+
+  @@index([organization_id])
+  @@index([target_asset_id])
+  @@index([target_job_id])
+  @@index([started_by_user_id])
+  @@index([status])
+}
+
+model staging_session_items {
+  id                  String              @id @default(uuid())
+  staging_session_id  String
+  item_type           staging_item_type
+  referenced_item_id  String
+  expected_quantity   Int?
+  actual_quantity     Int?
+  verification_status verification_status @default(pending)
+  note                String?
+  created_at          DateTime            @default(now())
+  updated_at          DateTime            @updatedAt
+
+  staging_session staging_sessions @relation(fields: [staging_session_id], references: [id])
+
+  @@index([staging_session_id])
+  @@index([item_type])
+  @@index([referenced_item_id])
+  @@index([verification_status])
 }
