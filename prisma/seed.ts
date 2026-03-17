@@ -1,13 +1,13 @@
 import "dotenv/config";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "../generated/prisma/client";
 import {
   asset_status,
   job_status,
   membership_role,
   maintenance_status,
-} from "../app/generated/prisma/enums";
+} from "../generated/prisma/enums";
 
 const connectionString = process.env.DATABASE_URL;
 
@@ -154,7 +154,7 @@ async function main() {
       note: "Checklist item still pending.",
     },
   });
-  
+
   await prisma.events.create({
     data: {
       organization_id: organization.id,
