@@ -1,7 +1,14 @@
 "use client";
 
 import { AppShell } from "../../components/app-shell";
-import { Search, TriangleAlert, Plus, Minus } from "lucide-react";
+import {
+    Search,
+    TriangleAlert,
+    Plus,
+    Minus,
+    PackagePlus,
+    Trash2,
+  } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 type InventoryItem = {
@@ -27,6 +34,17 @@ export default function InventoryPage() {
   const [items, setItems] = useState<InventoryItem[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState({
+    name: "",
+    sku: "",
+    part_number: "",
+    inventory_type: "consumable",
+    unit_of_measure: "box",
+    reorder_threshold: 2,
+    reorder_quantity: 5,
+    quantity_on_hand: 0,
+    location_id: "location-warehouse-001",
+  });
 
   async function loadInventory() {
     setLoading(true);
@@ -39,6 +57,13 @@ export default function InventoryPage() {
   useEffect(() => {
     loadInventory();
   }, []);
+
+  const lowStockCount = items.filter((item) => {
+    const balance = item.inventory_balances[0];
+    const available = balance?.quantity_available ?? 0;
+    const threshold = item.reorder_threshold ?? 0;
+    return available <= threshold;
+  }).length;
 
   const filteredItems = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -82,6 +107,62 @@ export default function InventoryPage() {
     await loadInventory();
   }
 
+  async function createItem(e: React.FormEvent) {
+    e.preventDefault();
+
+    await fetch("/api/inventory", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: form.name,
+        sku: form.sku || null,
+        part_number: form.part_number || null,
+        inventory_type: form.inventory_type,
+        unit_of_measure: form.unit_of_measure,
+        reorder_threshold: Number(form.reorder_threshold),
+        reorder_quantity: Number(form.reorder_quantity),
+        quantity_on_hand: Number(form.quantity_on_hand),
+        location_id: form.location_id,
+      }),
+    });
+
+    setForm({
+      name: "",
+      sku: "",
+      part_number: "",
+      inventory_type: "consumable",
+      unit_of_measure: "box",
+      reorder_threshold: 2,
+      reorder_quantity: 5,
+      quantity_on_hand: 0,
+      location_id: "location-warehouse-001",
+    });
+
+    await loadInventory();
+  }
+
+  async function removeItem(item: InventoryItem) {
+    const confirmed = window.confirm(
+      `Remove "${item.name}" from active inventory?`
+    );
+
+    if (!confirmed) return;
+
+    await fetch("/api/inventory", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        inventory_item_id: item.id,
+      }),
+    });
+
+    await loadInventory();
+  }
+
   return (
     <AppShell>
       <div className="mx-auto max-w-7xl">
@@ -116,15 +197,140 @@ export default function InventoryPage() {
                 ATLAS inventory prompts
               </div>
               <div className="mt-1 text-sm text-muted-foreground">
-                Low-stock highlighting is active. Search supports location codes.
-                Scanner and camera-based intake will plug into this module next.
+                Low-stock highlighting is active. Search supports location
+                codes. Scanner and camera-based intake will plug into this
+                module next.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-6 grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+          <form
+            onSubmit={createItem}
+            className="rounded-2xl border border-border bg-card p-5"
+          >
+            <div className="mb-4 flex items-center gap-3">
+              <PackagePlus className="h-5 w-5 text-accent" />
+              <div>
+                <div className="text-sm font-semibold text-foreground">
+                  Quick add inventory item
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Add consumables, parts, tooling, or materials
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-2">
+              <input
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                placeholder="Item name"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none"
+                required
+              />
+              <input
+                value={form.sku}
+                onChange={(e) => setForm({ ...form, sku: e.target.value })}
+                placeholder="SKU"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none"
+              />
+              <input
+                value={form.part_number}
+                onChange={(e) =>
+                  setForm({ ...form, part_number: e.target.value })
+                }
+                placeholder="Part number"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none"
+              />
+              <select
+                value={form.inventory_type}
+                onChange={(e) =>
+                  setForm({ ...form, inventory_type: e.target.value })
+                }
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none"
+              >
+                <option value="consumable">Consumable</option>
+                <option value="material">Material</option>
+                <option value="part">Part</option>
+                <option value="tooling">Tooling</option>
+              </select>
+              <input
+                value={form.unit_of_measure}
+                onChange={(e) =>
+                  setForm({ ...form, unit_of_measure: e.target.value })
+                }
+                placeholder="Unit of measure"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none"
+              />
+              <input
+                type="number"
+                value={form.quantity_on_hand}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    quantity_on_hand: Number(e.target.value),
+                  })
+                }
+                placeholder="Starting quantity"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none"
+              />
+              <input
+                type="number"
+                value={form.reorder_threshold}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    reorder_threshold: Number(e.target.value),
+                  })
+                }
+                placeholder="Reorder threshold"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none"
+              />
+              <input
+                type="number"
+                value={form.reorder_quantity}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    reorder_quantity: Number(e.target.value),
+                  })
+                }
+                placeholder="Reorder quantity"
+                className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-black transition hover:opacity-90"
+            >
+              <PackagePlus className="h-4 w-4" />
+              Add Item
+            </button>
+          </form>
+
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <div className="text-sm font-semibold text-foreground">
+              Inventory signals
+            </div>
+            <div className="mt-4 rounded-2xl border border-border bg-background p-4">
+              <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                Low stock items
+              </div>
+              <div className="mt-2 text-3xl font-bold text-foreground">
+                {lowStockCount}
+              </div>
+              <div className="mt-2 text-sm text-muted-foreground">
+                Items at or below reorder threshold
               </div>
             </div>
           </div>
         </div>
 
         <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          <div className="grid grid-cols-7 gap-4 border-b border-border px-6 py-4 text-sm font-semibold text-foreground">
+          <div className="grid grid-cols-8 gap-4 border-b border-border px-6 py-4 text-sm font-semibold text-foreground">
             <div>Item</div>
             <div>Type</div>
             <div>SKU / Part</div>
@@ -132,6 +338,7 @@ export default function InventoryPage() {
             <div>Location</div>
             <div>Stock State</div>
             <div>Adjust</div>
+            <div>Remove</div>
           </div>
 
           {loading ? (
@@ -152,12 +359,14 @@ export default function InventoryPage() {
               return (
                 <div
                   key={item.id}
-                  className={`grid grid-cols-7 gap-4 border-b border-border px-6 py-5 text-sm last:border-b-0 ${
+                  className={`grid grid-cols-8 gap-4 border-b border-border px-6 py-5 text-sm last:border-b-0 ${
                     low ? "bg-red-50/60 dark:bg-red-950/10" : ""
                   }`}
                 >
                   <div>
-                    <div className="font-medium text-foreground">{item.name}</div>
+                    <div className="font-medium text-foreground">
+                      {item.name}
+                    </div>
                     <div className="mt-1 text-xs text-muted-foreground">
                       {item.id}
                     </div>
@@ -174,7 +383,11 @@ export default function InventoryPage() {
                     </div>
                   </div>
 
-                  <div className={`font-semibold ${low ? "text-red-700 dark:text-red-300" : "text-foreground"}`}>
+                  <div
+                    className={`font-semibold ${
+                      low ? "text-red-700 dark:text-red-300" : "text-foreground"
+                    }`}
+                  >
                     {available}
                   </div>
 
@@ -212,6 +425,14 @@ export default function InventoryPage() {
                       <Plus className="h-4 w-4" />
                     </button>
                   </div>
+                  <div>
+  <button
+    onClick={() => removeItem(item)}
+    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-background text-red-600 transition hover:border-red-400 hover:bg-red-50 dark:text-red-300 dark:hover:bg-red-950/20"
+  >
+    <Trash2 className="h-4 w-4" />
+  </button>
+</div>
                 </div>
               );
             })

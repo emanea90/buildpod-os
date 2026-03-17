@@ -79,3 +79,12 @@ export async function adjustInventoryQuantity(data: {
     },
   });
 }
+
+export async function deactivateInventoryItem(inventory_item_id: string) {
+    return prisma.inventory_items.update({
+      where: { id: inventory_item_id },
+      data: {
+        active_flag: false,
+      },
+    });
+  }

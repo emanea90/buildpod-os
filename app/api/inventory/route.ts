@@ -3,6 +3,7 @@ import { getInventoryOverview } from "@/services/inventory.service";
 import {
   adjustInventoryQuantity,
   createInventoryItem,
+  deactivateInventoryItem,
 } from "@/services/inventory-mutations.service";
 
 export async function GET() {
@@ -83,6 +84,28 @@ export async function PATCH(req: Request) {
       {
         success: false,
         error: "Failed to adjust inventory quantity",
+      },
+      { status: 500 }
+    );
+  }
+}
+export async function DELETE(req: Request) {
+  try {
+    const body = await req.json();
+
+    const deleted = await deactivateInventoryItem(body.inventory_item_id);
+
+    return NextResponse.json({
+      success: true,
+      data: deleted,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Failed to remove inventory item",
       },
       { status: 500 }
     );
