@@ -14,13 +14,15 @@ export async function evaluateStagingSession(sessionId: string) {
 
   const hasItems = session.items.length > 0;
   const hasMissing = session.items.some(
-    (item) => item.verification_status === "missing" || item.verification_status === "issue"
+    (item) =>
+      item.verification_status === "missing" ||
+      item.verification_status === "issue"
   );
   const allVerified =
     hasItems &&
     session.items.every((item) => item.verification_status === "verified");
 
-  let nextStatus = session.status;
+  let nextStatus: "in_progress" | "failed" | "completed" = "in_progress";
 
   if (hasMissing) {
     nextStatus = "failed";
@@ -30,7 +32,7 @@ export async function evaluateStagingSession(sessionId: string) {
     nextStatus = "in_progress";
   }
 
-  const updated = await prisma.staging_sessions.update({
+  const updatedSession = await prisma.staging_sessions.update({
     where: { id: sessionId },
     data: {
       status: nextStatus,
@@ -38,5 +40,22 @@ export async function evaluateStagingSession(sessionId: string) {
     },
   });
 
-  return updated;
+  if (session.target_job_id) {
+    let nextJobStatus: "staging" | "ready" = "staging";
+
+    if (nextStatus === "completed") {
+      nextJobStatus = "ready";
+    } else {
+      nextJobStatus = "staging";
+    }
+
+    await prisma.jobs.update({
+      where: { id: session.target_job_id },
+      data: {
+        status: nextJobStatus,
+      },
+    });
+  }
+
+  return updatedSession;
 }
