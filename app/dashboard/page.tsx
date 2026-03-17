@@ -1,3 +1,4 @@
+import { AppShell } from "../../components/app-shell";
 import { getDashboardJobs } from "@/services/dashboard.service";
 
 export default async function DashboardPage() {
@@ -5,15 +6,19 @@ export default async function DashboardPage() {
   const jobs = await getDashboardJobs(organizationId);
 
   return (
-    <main className="min-h-screen bg-white p-8 text-black">
-      <div className="mx-auto max-w-6xl">
-        <h1 className="mb-2 text-3xl font-bold">BuildPod OS Dashboard</h1>
-        <p className="mb-8 text-sm text-gray-600">
-          Operational readiness overview
-        </p>
+    <AppShell>
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold tracking-tight text-foreground">
+            Readiness Dashboard
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Operational readiness overview across jobs, staging, and assets
+          </p>
+        </div>
 
-        <div className="overflow-hidden rounded-xl border border-gray-200">
-          <div className="grid grid-cols-5 gap-4 border-b bg-gray-50 px-4 py-3 text-sm font-semibold">
+        <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+          <div className="grid grid-cols-5 gap-4 border-b border-border px-6 py-4 text-sm font-semibold text-foreground">
             <div>Job</div>
             <div>Job Status</div>
             <div>Staging Status</div>
@@ -22,7 +27,7 @@ export default async function DashboardPage() {
           </div>
 
           {jobs.length === 0 ? (
-            <div className="px-4 py-6 text-sm text-gray-500">
+            <div className="px-6 py-8 text-sm text-muted-foreground">
               No jobs found.
             </div>
           ) : (
@@ -36,22 +41,26 @@ export default async function DashboardPage() {
               return (
                 <div
                   key={job.id}
-                  className="grid grid-cols-5 gap-4 border-b px-4 py-4 text-sm last:border-b-0"
+                  className="grid grid-cols-5 gap-4 border-b border-border px-6 py-5 text-sm last:border-b-0"
                 >
                   <div>
-                    <div className="font-medium">{job.title}</div>
-                    <div className="text-xs text-gray-500">{job.id}</div>
+                    <div className="font-medium text-foreground">{job.title}</div>
+                    <div className="mt-1 text-xs text-muted-foreground">
+                      {job.id}
+                    </div>
                   </div>
 
-                  <div className="capitalize">{job.status.replaceAll("_", " ")}</div>
+                  <div className="capitalize text-foreground">
+                    {job.status.replaceAll("_", " ")}
+                  </div>
 
-                  <div className="capitalize">
+                  <div className="capitalize text-foreground">
                     {latestSession
                       ? latestSession.status.replaceAll("_", " ")
                       : "No staging session"}
                   </div>
 
-                  <div>
+                  <div className="text-foreground">
                     {latestSession?.target_asset
                       ? latestSession.target_asset.name
                       : "No asset linked"}
@@ -61,8 +70,8 @@ export default async function DashboardPage() {
                     <span
                       className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
                         readiness === "Ready"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-red-100 text-red-800"
+                          ? "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300"
+                          : "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300"
                       }`}
                     >
                       {readiness}
@@ -74,6 +83,6 @@ export default async function DashboardPage() {
           )}
         </div>
       </div>
-    </main>
+    </AppShell>
   );
 }
