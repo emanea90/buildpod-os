@@ -28,6 +28,7 @@ export type LocationsMinAggregateOutputType = {
   id: string | null
   organization_id: string | null
   name: string | null
+  code: string | null
   location_type: $Enums.location_type | null
   parent_location_id: string | null
   created_at: Date | null
@@ -38,6 +39,7 @@ export type LocationsMaxAggregateOutputType = {
   id: string | null
   organization_id: string | null
   name: string | null
+  code: string | null
   location_type: $Enums.location_type | null
   parent_location_id: string | null
   created_at: Date | null
@@ -48,6 +50,7 @@ export type LocationsCountAggregateOutputType = {
   id: number
   organization_id: number
   name: number
+  code: number
   location_type: number
   parent_location_id: number
   created_at: number
@@ -60,6 +63,7 @@ export type LocationsMinAggregateInputType = {
   id?: true
   organization_id?: true
   name?: true
+  code?: true
   location_type?: true
   parent_location_id?: true
   created_at?: true
@@ -70,6 +74,7 @@ export type LocationsMaxAggregateInputType = {
   id?: true
   organization_id?: true
   name?: true
+  code?: true
   location_type?: true
   parent_location_id?: true
   created_at?: true
@@ -80,6 +85,7 @@ export type LocationsCountAggregateInputType = {
   id?: true
   organization_id?: true
   name?: true
+  code?: true
   location_type?: true
   parent_location_id?: true
   created_at?: true
@@ -163,6 +169,7 @@ export type LocationsGroupByOutputType = {
   id: string
   organization_id: string
   name: string
+  code: string | null
   location_type: $Enums.location_type
   parent_location_id: string | null
   created_at: Date
@@ -194,10 +201,12 @@ export type locationsWhereInput = {
   id?: Prisma.StringFilter<"locations"> | string
   organization_id?: Prisma.StringFilter<"locations"> | string
   name?: Prisma.StringFilter<"locations"> | string
+  code?: Prisma.StringNullableFilter<"locations"> | string | null
   location_type?: Prisma.Enumlocation_typeFilter<"locations"> | $Enums.location_type
   parent_location_id?: Prisma.StringNullableFilter<"locations"> | string | null
   created_at?: Prisma.DateTimeFilter<"locations"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"locations"> | Date | string
+  inventory_balances?: Prisma.Inventory_balancesListRelationFilter
   organization?: Prisma.XOR<Prisma.OrganizationsScalarRelationFilter, Prisma.organizationsWhereInput>
   parent?: Prisma.XOR<Prisma.LocationsNullableScalarRelationFilter, Prisma.locationsWhereInput> | null
   children?: Prisma.LocationsListRelationFilter
@@ -207,10 +216,12 @@ export type locationsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   organization_id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrderInput | Prisma.SortOrder
   location_type?: Prisma.SortOrder
   parent_location_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  inventory_balances?: Prisma.inventory_balancesOrderByRelationAggregateInput
   organization?: Prisma.organizationsOrderByWithRelationInput
   parent?: Prisma.locationsOrderByWithRelationInput
   children?: Prisma.locationsOrderByRelationAggregateInput
@@ -223,10 +234,12 @@ export type locationsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.locationsWhereInput | Prisma.locationsWhereInput[]
   organization_id?: Prisma.StringFilter<"locations"> | string
   name?: Prisma.StringFilter<"locations"> | string
+  code?: Prisma.StringNullableFilter<"locations"> | string | null
   location_type?: Prisma.Enumlocation_typeFilter<"locations"> | $Enums.location_type
   parent_location_id?: Prisma.StringNullableFilter<"locations"> | string | null
   created_at?: Prisma.DateTimeFilter<"locations"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"locations"> | Date | string
+  inventory_balances?: Prisma.Inventory_balancesListRelationFilter
   organization?: Prisma.XOR<Prisma.OrganizationsScalarRelationFilter, Prisma.organizationsWhereInput>
   parent?: Prisma.XOR<Prisma.LocationsNullableScalarRelationFilter, Prisma.locationsWhereInput> | null
   children?: Prisma.LocationsListRelationFilter
@@ -236,6 +249,7 @@ export type locationsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   organization_id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrderInput | Prisma.SortOrder
   location_type?: Prisma.SortOrder
   parent_location_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -252,6 +266,7 @@ export type locationsScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"locations"> | string
   organization_id?: Prisma.StringWithAggregatesFilter<"locations"> | string
   name?: Prisma.StringWithAggregatesFilter<"locations"> | string
+  code?: Prisma.StringNullableWithAggregatesFilter<"locations"> | string | null
   location_type?: Prisma.Enumlocation_typeWithAggregatesFilter<"locations"> | $Enums.location_type
   parent_location_id?: Prisma.StringNullableWithAggregatesFilter<"locations"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"locations"> | Date | string
@@ -261,9 +276,11 @@ export type locationsScalarWhereWithAggregatesInput = {
 export type locationsCreateInput = {
   id?: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   created_at?: Date | string
   updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesCreateNestedManyWithoutLocationInput
   organization: Prisma.organizationsCreateNestedOneWithoutLocationsInput
   parent?: Prisma.locationsCreateNestedOneWithoutChildrenInput
   children?: Prisma.locationsCreateNestedManyWithoutParentInput
@@ -273,19 +290,23 @@ export type locationsUncheckedCreateInput = {
   id?: string
   organization_id: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   parent_location_id?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutLocationInput
   children?: Prisma.locationsUncheckedCreateNestedManyWithoutParentInput
 }
 
 export type locationsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUpdateManyWithoutLocationNestedInput
   organization?: Prisma.organizationsUpdateOneRequiredWithoutLocationsNestedInput
   parent?: Prisma.locationsUpdateOneWithoutChildrenNestedInput
   children?: Prisma.locationsUpdateManyWithoutParentNestedInput
@@ -295,10 +316,12 @@ export type locationsUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   organization_id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   parent_location_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutLocationNestedInput
   children?: Prisma.locationsUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -306,6 +329,7 @@ export type locationsCreateManyInput = {
   id?: string
   organization_id: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   parent_location_id?: string | null
   created_at?: Date | string
@@ -315,6 +339,7 @@ export type locationsCreateManyInput = {
 export type locationsUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -324,6 +349,7 @@ export type locationsUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   organization_id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   parent_location_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -349,6 +375,7 @@ export type locationsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   organization_id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrder
   location_type?: Prisma.SortOrder
   parent_location_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -359,6 +386,7 @@ export type locationsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   organization_id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrder
   location_type?: Prisma.SortOrder
   parent_location_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -369,10 +397,16 @@ export type locationsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   organization_id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrder
   location_type?: Prisma.SortOrder
   parent_location_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+}
+
+export type LocationsScalarRelationFilter = {
+  is?: Prisma.locationsWhereInput
+  isNot?: Prisma.locationsWhereInput
 }
 
 export type locationsCreateNestedManyWithoutOrganizationInput = {
@@ -479,12 +513,28 @@ export type locationsUncheckedUpdateManyWithoutParentNestedInput = {
   deleteMany?: Prisma.locationsScalarWhereInput | Prisma.locationsScalarWhereInput[]
 }
 
+export type locationsCreateNestedOneWithoutInventory_balancesInput = {
+  create?: Prisma.XOR<Prisma.locationsCreateWithoutInventory_balancesInput, Prisma.locationsUncheckedCreateWithoutInventory_balancesInput>
+  connectOrCreate?: Prisma.locationsCreateOrConnectWithoutInventory_balancesInput
+  connect?: Prisma.locationsWhereUniqueInput
+}
+
+export type locationsUpdateOneRequiredWithoutInventory_balancesNestedInput = {
+  create?: Prisma.XOR<Prisma.locationsCreateWithoutInventory_balancesInput, Prisma.locationsUncheckedCreateWithoutInventory_balancesInput>
+  connectOrCreate?: Prisma.locationsCreateOrConnectWithoutInventory_balancesInput
+  upsert?: Prisma.locationsUpsertWithoutInventory_balancesInput
+  connect?: Prisma.locationsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.locationsUpdateToOneWithWhereWithoutInventory_balancesInput, Prisma.locationsUpdateWithoutInventory_balancesInput>, Prisma.locationsUncheckedUpdateWithoutInventory_balancesInput>
+}
+
 export type locationsCreateWithoutOrganizationInput = {
   id?: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   created_at?: Date | string
   updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesCreateNestedManyWithoutLocationInput
   parent?: Prisma.locationsCreateNestedOneWithoutChildrenInput
   children?: Prisma.locationsCreateNestedManyWithoutParentInput
 }
@@ -492,10 +542,12 @@ export type locationsCreateWithoutOrganizationInput = {
 export type locationsUncheckedCreateWithoutOrganizationInput = {
   id?: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   parent_location_id?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutLocationInput
   children?: Prisma.locationsUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -532,6 +584,7 @@ export type locationsScalarWhereInput = {
   id?: Prisma.StringFilter<"locations"> | string
   organization_id?: Prisma.StringFilter<"locations"> | string
   name?: Prisma.StringFilter<"locations"> | string
+  code?: Prisma.StringNullableFilter<"locations"> | string | null
   location_type?: Prisma.Enumlocation_typeFilter<"locations"> | $Enums.location_type
   parent_location_id?: Prisma.StringNullableFilter<"locations"> | string | null
   created_at?: Prisma.DateTimeFilter<"locations"> | Date | string
@@ -541,9 +594,11 @@ export type locationsScalarWhereInput = {
 export type locationsCreateWithoutChildrenInput = {
   id?: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   created_at?: Date | string
   updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesCreateNestedManyWithoutLocationInput
   organization: Prisma.organizationsCreateNestedOneWithoutLocationsInput
   parent?: Prisma.locationsCreateNestedOneWithoutChildrenInput
 }
@@ -552,10 +607,12 @@ export type locationsUncheckedCreateWithoutChildrenInput = {
   id?: string
   organization_id: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   parent_location_id?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutLocationInput
 }
 
 export type locationsCreateOrConnectWithoutChildrenInput = {
@@ -566,9 +623,11 @@ export type locationsCreateOrConnectWithoutChildrenInput = {
 export type locationsCreateWithoutParentInput = {
   id?: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   created_at?: Date | string
   updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesCreateNestedManyWithoutLocationInput
   organization: Prisma.organizationsCreateNestedOneWithoutLocationsInput
   children?: Prisma.locationsCreateNestedManyWithoutParentInput
 }
@@ -577,9 +636,11 @@ export type locationsUncheckedCreateWithoutParentInput = {
   id?: string
   organization_id: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   created_at?: Date | string
   updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutLocationInput
   children?: Prisma.locationsUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -607,9 +668,11 @@ export type locationsUpdateToOneWithWhereWithoutChildrenInput = {
 export type locationsUpdateWithoutChildrenInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUpdateManyWithoutLocationNestedInput
   organization?: Prisma.organizationsUpdateOneRequiredWithoutLocationsNestedInput
   parent?: Prisma.locationsUpdateOneWithoutChildrenNestedInput
 }
@@ -618,10 +681,12 @@ export type locationsUncheckedUpdateWithoutChildrenInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   organization_id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   parent_location_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsUpsertWithWhereUniqueWithoutParentInput = {
@@ -640,9 +705,74 @@ export type locationsUpdateManyWithWhereWithoutParentInput = {
   data: Prisma.XOR<Prisma.locationsUpdateManyMutationInput, Prisma.locationsUncheckedUpdateManyWithoutParentInput>
 }
 
+export type locationsCreateWithoutInventory_balancesInput = {
+  id?: string
+  name: string
+  code?: string | null
+  location_type: $Enums.location_type
+  created_at?: Date | string
+  updated_at?: Date | string
+  organization: Prisma.organizationsCreateNestedOneWithoutLocationsInput
+  parent?: Prisma.locationsCreateNestedOneWithoutChildrenInput
+  children?: Prisma.locationsCreateNestedManyWithoutParentInput
+}
+
+export type locationsUncheckedCreateWithoutInventory_balancesInput = {
+  id?: string
+  organization_id: string
+  name: string
+  code?: string | null
+  location_type: $Enums.location_type
+  parent_location_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  children?: Prisma.locationsUncheckedCreateNestedManyWithoutParentInput
+}
+
+export type locationsCreateOrConnectWithoutInventory_balancesInput = {
+  where: Prisma.locationsWhereUniqueInput
+  create: Prisma.XOR<Prisma.locationsCreateWithoutInventory_balancesInput, Prisma.locationsUncheckedCreateWithoutInventory_balancesInput>
+}
+
+export type locationsUpsertWithoutInventory_balancesInput = {
+  update: Prisma.XOR<Prisma.locationsUpdateWithoutInventory_balancesInput, Prisma.locationsUncheckedUpdateWithoutInventory_balancesInput>
+  create: Prisma.XOR<Prisma.locationsCreateWithoutInventory_balancesInput, Prisma.locationsUncheckedCreateWithoutInventory_balancesInput>
+  where?: Prisma.locationsWhereInput
+}
+
+export type locationsUpdateToOneWithWhereWithoutInventory_balancesInput = {
+  where?: Prisma.locationsWhereInput
+  data: Prisma.XOR<Prisma.locationsUpdateWithoutInventory_balancesInput, Prisma.locationsUncheckedUpdateWithoutInventory_balancesInput>
+}
+
+export type locationsUpdateWithoutInventory_balancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.organizationsUpdateOneRequiredWithoutLocationsNestedInput
+  parent?: Prisma.locationsUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.locationsUpdateManyWithoutParentNestedInput
+}
+
+export type locationsUncheckedUpdateWithoutInventory_balancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organization_id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
+  parent_location_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.locationsUncheckedUpdateManyWithoutParentNestedInput
+}
+
 export type locationsCreateManyOrganizationInput = {
   id?: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   parent_location_id?: string | null
   created_at?: Date | string
@@ -652,9 +782,11 @@ export type locationsCreateManyOrganizationInput = {
 export type locationsUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUpdateManyWithoutLocationNestedInput
   parent?: Prisma.locationsUpdateOneWithoutChildrenNestedInput
   children?: Prisma.locationsUpdateManyWithoutParentNestedInput
 }
@@ -662,16 +794,19 @@ export type locationsUpdateWithoutOrganizationInput = {
 export type locationsUncheckedUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   parent_location_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutLocationNestedInput
   children?: Prisma.locationsUncheckedUpdateManyWithoutParentNestedInput
 }
 
 export type locationsUncheckedUpdateManyWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   parent_location_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -682,6 +817,7 @@ export type locationsCreateManyParentInput = {
   id?: string
   organization_id: string
   name: string
+  code?: string | null
   location_type: $Enums.location_type
   created_at?: Date | string
   updated_at?: Date | string
@@ -690,9 +826,11 @@ export type locationsCreateManyParentInput = {
 export type locationsUpdateWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUpdateManyWithoutLocationNestedInput
   organization?: Prisma.organizationsUpdateOneRequiredWithoutLocationsNestedInput
   children?: Prisma.locationsUpdateManyWithoutParentNestedInput
 }
@@ -701,9 +839,11 @@ export type locationsUncheckedUpdateWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   organization_id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutLocationNestedInput
   children?: Prisma.locationsUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -711,6 +851,7 @@ export type locationsUncheckedUpdateManyWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   organization_id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -722,10 +863,12 @@ export type locationsUncheckedUpdateManyWithoutParentInput = {
  */
 
 export type LocationsCountOutputType = {
+  inventory_balances: number
   children: number
 }
 
 export type LocationsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  inventory_balances?: boolean | LocationsCountOutputTypeCountInventory_balancesArgs
   children?: boolean | LocationsCountOutputTypeCountChildrenArgs
 }
 
@@ -742,6 +885,13 @@ export type LocationsCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
 /**
  * LocationsCountOutputType without action
  */
+export type LocationsCountOutputTypeCountInventory_balancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.inventory_balancesWhereInput
+}
+
+/**
+ * LocationsCountOutputType without action
+ */
 export type LocationsCountOutputTypeCountChildrenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.locationsWhereInput
 }
@@ -751,10 +901,12 @@ export type locationsSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   organization_id?: boolean
   name?: boolean
+  code?: boolean
   location_type?: boolean
   parent_location_id?: boolean
   created_at?: boolean
   updated_at?: boolean
+  inventory_balances?: boolean | Prisma.locations$inventory_balancesArgs<ExtArgs>
   organization?: boolean | Prisma.organizationsDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.locations$parentArgs<ExtArgs>
   children?: boolean | Prisma.locations$childrenArgs<ExtArgs>
@@ -765,6 +917,7 @@ export type locationsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   organization_id?: boolean
   name?: boolean
+  code?: boolean
   location_type?: boolean
   parent_location_id?: boolean
   created_at?: boolean
@@ -777,6 +930,7 @@ export type locationsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   organization_id?: boolean
   name?: boolean
+  code?: boolean
   location_type?: boolean
   parent_location_id?: boolean
   created_at?: boolean
@@ -789,14 +943,16 @@ export type locationsSelectScalar = {
   id?: boolean
   organization_id?: boolean
   name?: boolean
+  code?: boolean
   location_type?: boolean
   parent_location_id?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type locationsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organization_id" | "name" | "location_type" | "parent_location_id" | "created_at" | "updated_at", ExtArgs["result"]["locations"]>
+export type locationsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organization_id" | "name" | "code" | "location_type" | "parent_location_id" | "created_at" | "updated_at", ExtArgs["result"]["locations"]>
 export type locationsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  inventory_balances?: boolean | Prisma.locations$inventory_balancesArgs<ExtArgs>
   organization?: boolean | Prisma.organizationsDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.locations$parentArgs<ExtArgs>
   children?: boolean | Prisma.locations$childrenArgs<ExtArgs>
@@ -814,6 +970,7 @@ export type locationsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type $locationsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "locations"
   objects: {
+    inventory_balances: Prisma.$inventory_balancesPayload<ExtArgs>[]
     organization: Prisma.$organizationsPayload<ExtArgs>
     parent: Prisma.$locationsPayload<ExtArgs> | null
     children: Prisma.$locationsPayload<ExtArgs>[]
@@ -822,6 +979,7 @@ export type $locationsPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     id: string
     organization_id: string
     name: string
+    code: string | null
     location_type: $Enums.location_type
     parent_location_id: string | null
     created_at: Date
@@ -1220,6 +1378,7 @@ readonly fields: locationsFieldRefs;
  */
 export interface Prisma__locationsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  inventory_balances<T extends Prisma.locations$inventory_balancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.locations$inventory_balancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$inventory_balancesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   organization<T extends Prisma.organizationsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.organizationsDefaultArgs<ExtArgs>>): Prisma.Prisma__organizationsClient<runtime.Types.Result.GetResult<Prisma.$organizationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   parent<T extends Prisma.locations$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.locations$parentArgs<ExtArgs>>): Prisma.Prisma__locationsClient<runtime.Types.Result.GetResult<Prisma.$locationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   children<T extends Prisma.locations$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.locations$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$locationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1255,6 +1414,7 @@ export interface locationsFieldRefs {
   readonly id: Prisma.FieldRef<"locations", 'String'>
   readonly organization_id: Prisma.FieldRef<"locations", 'String'>
   readonly name: Prisma.FieldRef<"locations", 'String'>
+  readonly code: Prisma.FieldRef<"locations", 'String'>
   readonly location_type: Prisma.FieldRef<"locations", 'location_type'>
   readonly parent_location_id: Prisma.FieldRef<"locations", 'String'>
   readonly created_at: Prisma.FieldRef<"locations", 'DateTime'>
@@ -1657,6 +1817,30 @@ export type locationsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many locations to delete.
    */
   limit?: number
+}
+
+/**
+ * locations.inventory_balances
+ */
+export type locations$inventory_balancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the inventory_balances
+   */
+  select?: Prisma.inventory_balancesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the inventory_balances
+   */
+  omit?: Prisma.inventory_balancesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.inventory_balancesInclude<ExtArgs> | null
+  where?: Prisma.inventory_balancesWhereInput
+  orderBy?: Prisma.inventory_balancesOrderByWithRelationInput | Prisma.inventory_balancesOrderByWithRelationInput[]
+  cursor?: Prisma.inventory_balancesWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Inventory_balancesScalarFieldEnum | Prisma.Inventory_balancesScalarFieldEnum[]
 }
 
 /**

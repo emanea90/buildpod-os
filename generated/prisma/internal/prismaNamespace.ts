@@ -394,7 +394,9 @@ export const ModelName = {
   events: 'events',
   locations: 'locations',
   staging_sessions: 'staging_sessions',
-  staging_session_items: 'staging_session_items'
+  staging_session_items: 'staging_session_items',
+  inventory_items: 'inventory_items',
+  inventory_balances: 'inventory_balances'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organizations" | "users" | "organization_memberships" | "assets" | "jobs" | "job_assignments" | "maintenance_events" | "events" | "locations" | "staging_sessions" | "staging_session_items"
+    modelProps: "organizations" | "users" | "organization_memberships" | "assets" | "jobs" | "job_assignments" | "maintenance_events" | "events" | "locations" | "staging_sessions" | "staging_session_items" | "inventory_items" | "inventory_balances"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1228,6 +1230,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    inventory_items: {
+      payload: Prisma.$inventory_itemsPayload<ExtArgs>
+      fields: Prisma.inventory_itemsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.inventory_itemsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.inventory_itemsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload>
+        }
+        findFirst: {
+          args: Prisma.inventory_itemsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.inventory_itemsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload>
+        }
+        findMany: {
+          args: Prisma.inventory_itemsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload>[]
+        }
+        create: {
+          args: Prisma.inventory_itemsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload>
+        }
+        createMany: {
+          args: Prisma.inventory_itemsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.inventory_itemsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload>[]
+        }
+        delete: {
+          args: Prisma.inventory_itemsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload>
+        }
+        update: {
+          args: Prisma.inventory_itemsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload>
+        }
+        deleteMany: {
+          args: Prisma.inventory_itemsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.inventory_itemsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.inventory_itemsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload>[]
+        }
+        upsert: {
+          args: Prisma.inventory_itemsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_itemsPayload>
+        }
+        aggregate: {
+          args: Prisma.Inventory_itemsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInventory_items>
+        }
+        groupBy: {
+          args: Prisma.inventory_itemsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Inventory_itemsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.inventory_itemsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Inventory_itemsCountAggregateOutputType> | number
+        }
+      }
+    }
+    inventory_balances: {
+      payload: Prisma.$inventory_balancesPayload<ExtArgs>
+      fields: Prisma.inventory_balancesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.inventory_balancesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.inventory_balancesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload>
+        }
+        findFirst: {
+          args: Prisma.inventory_balancesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.inventory_balancesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload>
+        }
+        findMany: {
+          args: Prisma.inventory_balancesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload>[]
+        }
+        create: {
+          args: Prisma.inventory_balancesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload>
+        }
+        createMany: {
+          args: Prisma.inventory_balancesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.inventory_balancesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload>[]
+        }
+        delete: {
+          args: Prisma.inventory_balancesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload>
+        }
+        update: {
+          args: Prisma.inventory_balancesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload>
+        }
+        deleteMany: {
+          args: Prisma.inventory_balancesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.inventory_balancesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.inventory_balancesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload>[]
+        }
+        upsert: {
+          args: Prisma.inventory_balancesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$inventory_balancesPayload>
+        }
+        aggregate: {
+          args: Prisma.Inventory_balancesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInventory_balances>
+        }
+        groupBy: {
+          args: Prisma.inventory_balancesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Inventory_balancesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.inventory_balancesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Inventory_balancesCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1362,6 +1512,7 @@ export const LocationsScalarFieldEnum = {
   id: 'id',
   organization_id: 'organization_id',
   name: 'name',
+  code: 'code',
   location_type: 'location_type',
   parent_location_id: 'parent_location_id',
   created_at: 'created_at',
@@ -1402,6 +1553,41 @@ export const Staging_session_itemsScalarFieldEnum = {
 } as const
 
 export type Staging_session_itemsScalarFieldEnum = (typeof Staging_session_itemsScalarFieldEnum)[keyof typeof Staging_session_itemsScalarFieldEnum]
+
+
+export const Inventory_itemsScalarFieldEnum = {
+  id: 'id',
+  organization_id: 'organization_id',
+  sku: 'sku',
+  part_number: 'part_number',
+  name: 'name',
+  inventory_type: 'inventory_type',
+  unit_of_measure: 'unit_of_measure',
+  standard_cost: 'standard_cost',
+  reorder_threshold: 'reorder_threshold',
+  reorder_quantity: 'reorder_quantity',
+  active_flag: 'active_flag',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type Inventory_itemsScalarFieldEnum = (typeof Inventory_itemsScalarFieldEnum)[keyof typeof Inventory_itemsScalarFieldEnum]
+
+
+export const Inventory_balancesScalarFieldEnum = {
+  id: 'id',
+  organization_id: 'organization_id',
+  inventory_item_id: 'inventory_item_id',
+  location_id: 'location_id',
+  quantity_on_hand: 'quantity_on_hand',
+  quantity_reserved: 'quantity_reserved',
+  quantity_available: 'quantity_available',
+  last_counted_at: 'last_counted_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type Inventory_balancesScalarFieldEnum = (typeof Inventory_balancesScalarFieldEnum)[keyof typeof Inventory_balancesScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1620,6 +1806,20 @@ export type ListEnumverification_statusFieldRefInput<$PrismaModel> = FieldRefInp
 
 
 /**
+ * Reference to a field of type 'inventory_type'
+ */
+export type Enuminventory_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'inventory_type'>
+    
+
+
+/**
+ * Reference to a field of type 'inventory_type[]'
+ */
+export type ListEnuminventory_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'inventory_type[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1630,6 +1830,13 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 /**
@@ -1738,6 +1945,8 @@ export type GlobalOmitConfig = {
   locations?: Prisma.locationsOmit
   staging_sessions?: Prisma.staging_sessionsOmit
   staging_session_items?: Prisma.staging_session_itemsOmit
+  inventory_items?: Prisma.inventory_itemsOmit
+  inventory_balances?: Prisma.inventory_balancesOmit
 }
 
 /* Types for Logging */

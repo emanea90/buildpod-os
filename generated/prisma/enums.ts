@@ -96,3 +96,13 @@ export const verification_status = {
 } as const
 
 export type verification_status = (typeof verification_status)[keyof typeof verification_status]
+
+
+export const inventory_type = {
+  consumable: 'consumable',
+  material: 'material',
+  part: 'part',
+  tooling: 'tooling'
+} as const
+
+export type inventory_type = (typeof inventory_type)[keyof typeof inventory_type]

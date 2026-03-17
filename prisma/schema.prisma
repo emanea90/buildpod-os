@@ -18,13 +18,15 @@ model organizations {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  memberships      organization_memberships[]
-  assets           assets[]
-  jobs             jobs[]
-  events           events[]
-  maintenance      maintenance_events[]
-  locations        locations[]
-  staging_sessions staging_sessions[]
+  memberships       organization_memberships[]
+  assets            assets[]
+  jobs              jobs[]
+  events            events[]
+  maintenance       maintenance_events[]
+  locations         locations[]
+  staging_sessions  staging_sessions[]
+  inventoryItems    inventory_items[]
+  inventoryBalances inventory_balances[]
 }
 
 model users {
@@ -162,10 +164,13 @@ model locations {
   id                 String        @id @default(uuid())
   organization_id    String
   name               String
+  code               String?
   location_type      location_type
   parent_location_id String?
   created_at         DateTime      @default(now())
   updated_at         DateTime      @updatedAt
+
+  inventory_balances inventory_balances[]
 
   organization organizations @relation(fields: [organization_id], references: [id])
   parent       locations?    @relation("location_hierarchy", fields: [parent_location_id], references: [id])
@@ -240,4 +245,55 @@ model staging_session_items {
   @@index([item_type])
   @@index([referenced_item_id])
   @@index([verification_status])
+}
+
+enum inventory_type {
+  consumable
+  material
+  part
+  tooling
+}
+
+model inventory_items {
+  id                String         @id @default(uuid())
+  organization_id   String
+  sku               String?
+  part_number       String?
+  name              String
+  inventory_type    inventory_type
+  unit_of_measure   String
+  standard_cost     Float?
+  reorder_threshold Int?
+  reorder_quantity  Int?
+  active_flag       Boolean        @default(true)
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @updatedAt
+
+  organization       organizations        @relation(fields: [organization_id], references: [id])
+  inventory_balances inventory_balances[]
+
+  @@index([organization_id])
+  @@index([sku])
+  @@index([part_number])
+}
+
+model inventory_balances {
+  id                 String    @id @default(uuid())
+  organization_id    String
+  inventory_item_id  String
+  location_id        String
+  quantity_on_hand   Int       @default(0)
+  quantity_reserved  Int       @default(0)
+  quantity_available Int       @default(0)
+  last_counted_at    DateTime?
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+
+  organization   organizations   @relation(fields: [organization_id], references: [id])
+  inventory_item inventory_items @relation(fields: [inventory_item_id], references: [id])
+  location       locations       @relation(fields: [location_id], references: [id])
+
+  @@unique([inventory_item_id, location_id])
+  @@index([organization_id])
+  @@index([location_id])
 }

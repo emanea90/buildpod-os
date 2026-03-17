@@ -90,22 +90,28 @@ async function main() {
 
   const warehouse = await prisma.locations.upsert({
     where: { id: "location-warehouse-001" },
-    update: {},
+    update: {
+      code: "WH-A1",
+    },
     create: {
       id: "location-warehouse-001",
       organization_id: organization.id,
       name: "Main Warehouse",
+      code: "WH-A1",
       location_type: "warehouse",
     },
   });
 
   await prisma.locations.upsert({
     where: { id: "location-trailer-bay-001" },
-    update: {},
+    update: {
+      code: "TB-01",
+    },
     create: {
       id: "location-trailer-bay-001",
       organization_id: organization.id,
       name: "Trailer Bay 01",
+      code: "TB-01",
       location_type: "trailer_bay",
       parent_location_id: warehouse.id,
     },
@@ -154,6 +160,43 @@ async function main() {
       note: "Checklist item still pending.",
     },
   });
+
+  const consumable = await prisma.inventory_items.upsert({
+    where: { id: "inventory-001" },
+    update: {},
+    create: {
+      id: "inventory-001",
+      organization_id: organization.id,
+      sku: "BP-SCREW-001",
+      part_number: "SCREW-3IN-DEMO",
+      name: "3in Structural Screws",
+      inventory_type: "consumable",
+      unit_of_measure: "box",
+      standard_cost: 24.99,
+      reorder_threshold: 2,
+      reorder_quantity: 5,
+      active_flag: true,
+    },
+  });
+
+  await prisma.inventory_balances.upsert({
+    where: {
+      inventory_item_id_location_id: {
+        inventory_item_id: consumable.id,
+        location_id: warehouse.id,
+      },
+    },
+    update: {},
+    create: {
+      organization_id: organization.id,
+      inventory_item_id: consumable.id,
+      location_id: warehouse.id,
+      quantity_on_hand: 8,
+      quantity_reserved: 1,
+      quantity_available: 7,
+      last_counted_at: new Date(),
+    },
+  });  
 
   await prisma.events.create({
     data: {

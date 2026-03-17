@@ -72,3 +72,13 @@ export type staging_sessions = Prisma.staging_sessionsModel
  * 
  */
 export type staging_session_items = Prisma.staging_session_itemsModel
+/**
+ * Model inventory_items
+ * 
+ */
+export type inventory_items = Prisma.inventory_itemsModel
+/**
+ * Model inventory_balances
+ * 
+ */
+export type inventory_balances = Prisma.inventory_balancesModel

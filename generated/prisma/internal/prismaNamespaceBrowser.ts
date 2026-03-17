@@ -61,7 +61,9 @@ export const ModelName = {
   events: 'events',
   locations: 'locations',
   staging_sessions: 'staging_sessions',
-  staging_session_items: 'staging_session_items'
+  staging_session_items: 'staging_session_items',
+  inventory_items: 'inventory_items',
+  inventory_balances: 'inventory_balances'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -175,6 +177,7 @@ export const LocationsScalarFieldEnum = {
   id: 'id',
   organization_id: 'organization_id',
   name: 'name',
+  code: 'code',
   location_type: 'location_type',
   parent_location_id: 'parent_location_id',
   created_at: 'created_at',
@@ -215,6 +218,41 @@ export const Staging_session_itemsScalarFieldEnum = {
 } as const
 
 export type Staging_session_itemsScalarFieldEnum = (typeof Staging_session_itemsScalarFieldEnum)[keyof typeof Staging_session_itemsScalarFieldEnum]
+
+
+export const Inventory_itemsScalarFieldEnum = {
+  id: 'id',
+  organization_id: 'organization_id',
+  sku: 'sku',
+  part_number: 'part_number',
+  name: 'name',
+  inventory_type: 'inventory_type',
+  unit_of_measure: 'unit_of_measure',
+  standard_cost: 'standard_cost',
+  reorder_threshold: 'reorder_threshold',
+  reorder_quantity: 'reorder_quantity',
+  active_flag: 'active_flag',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type Inventory_itemsScalarFieldEnum = (typeof Inventory_itemsScalarFieldEnum)[keyof typeof Inventory_itemsScalarFieldEnum]
+
+
+export const Inventory_balancesScalarFieldEnum = {
+  id: 'id',
+  organization_id: 'organization_id',
+  inventory_item_id: 'inventory_item_id',
+  location_id: 'location_id',
+  quantity_on_hand: 'quantity_on_hand',
+  quantity_reserved: 'quantity_reserved',
+  quantity_available: 'quantity_available',
+  last_counted_at: 'last_counted_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type Inventory_balancesScalarFieldEnum = (typeof Inventory_balancesScalarFieldEnum)[keyof typeof Inventory_balancesScalarFieldEnum]
 
 
 export const SortOrder = {
