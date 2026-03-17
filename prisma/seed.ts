@@ -88,6 +88,73 @@ async function main() {
     },
   });
 
+  const warehouse = await prisma.locations.upsert({
+    where: { id: "location-warehouse-001" },
+    update: {},
+    create: {
+      id: "location-warehouse-001",
+      organization_id: organization.id,
+      name: "Main Warehouse",
+      location_type: "warehouse",
+    },
+  });
+
+  await prisma.locations.upsert({
+    where: { id: "location-trailer-bay-001" },
+    update: {},
+    create: {
+      id: "location-trailer-bay-001",
+      organization_id: organization.id,
+      name: "Trailer Bay 01",
+      location_type: "trailer_bay",
+      parent_location_id: warehouse.id,
+    },
+  });
+
+  const stagingSession = await prisma.staging_sessions.upsert({
+    where: { id: "staging-session-001" },
+    update: {},
+    create: {
+      id: "staging-session-001",
+      organization_id: organization.id,
+      target_asset_id: trailer.id,
+      target_job_id: "job-001",
+      started_by_user_id: user.id,
+      status: "in_progress",
+      notes: "Initial demo staging session.",
+    },
+  });
+
+  await prisma.staging_session_items.upsert({
+    where: { id: "staging-item-001" },
+    update: {},
+    create: {
+      id: "staging-item-001",
+      staging_session_id: stagingSession.id,
+      item_type: "asset",
+      referenced_item_id: trailer.id,
+      expected_quantity: 1,
+      actual_quantity: 1,
+      verification_status: "verified",
+      note: "Trailer verified for demo staging.",
+    },
+  });
+
+  await prisma.staging_session_items.upsert({
+    where: { id: "staging-item-002" },
+    update: {},
+    create: {
+      id: "staging-item-002",
+      staging_session_id: stagingSession.id,
+      item_type: "checklist",
+      referenced_item_id: "checklist-demo-001",
+      expected_quantity: 1,
+      actual_quantity: 0,
+      verification_status: "pending",
+      note: "Checklist item still pending.",
+    },
+  });
+  
   await prisma.events.create({
     data: {
       organization_id: organization.id,
