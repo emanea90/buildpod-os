@@ -820,7 +820,7 @@ export function StagingSessionItemsPanel({
             </p>
           </div>
 
-          <div className="max-h-[450px] overflow-y-auto px-5 py-4">
+          <div className="max-h-[370px] overflow-y-auto px-5 py-4">
             {!events.length ? (
               <div className="text-sm text-muted-foreground">
                 No scan or staging activity recorded yet.
