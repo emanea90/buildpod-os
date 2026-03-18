@@ -106,3 +106,14 @@ export const inventory_type = {
 } as const
 
 export type inventory_type = (typeof inventory_type)[keyof typeof inventory_type]
+
+
+export const inventory_transaction_type = {
+  receive: 'receive',
+  issue: 'issue',
+  adjust: 'adjust',
+  count: 'count',
+  transfer: 'transfer'
+} as const
+
+export type inventory_transaction_type = (typeof inventory_transaction_type)[keyof typeof inventory_transaction_type]

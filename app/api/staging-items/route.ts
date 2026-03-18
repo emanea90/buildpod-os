@@ -7,6 +7,16 @@ export async function PATCH(req: Request) {
 
     const { id, actual_quantity, verification_status, note } = body;
 
+    if (!id) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "id is required",
+        },
+        { status: 400 }
+      );
+    }
+
     const updated = await updateStagingItem(id, {
       actual_quantity,
       verification_status,

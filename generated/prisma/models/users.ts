@@ -168,6 +168,7 @@ export type usersWhereInput = {
   created_at?: Prisma.DateTimeFilter<"users"> | Date | string
   memberships?: Prisma.Organization_membershipsListRelationFilter
   started_staging_sessions?: Prisma.Staging_sessionsListRelationFilter
+  inventoryTransactions?: Prisma.Inventory_transactionsListRelationFilter
 }
 
 export type usersOrderByWithRelationInput = {
@@ -176,6 +177,7 @@ export type usersOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   memberships?: Prisma.organization_membershipsOrderByRelationAggregateInput
   started_staging_sessions?: Prisma.staging_sessionsOrderByRelationAggregateInput
+  inventoryTransactions?: Prisma.inventory_transactionsOrderByRelationAggregateInput
 }
 
 export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -187,6 +189,7 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"users"> | Date | string
   memberships?: Prisma.Organization_membershipsListRelationFilter
   started_staging_sessions?: Prisma.Staging_sessionsListRelationFilter
+  inventoryTransactions?: Prisma.Inventory_transactionsListRelationFilter
 }, "id">
 
 export type usersOrderByWithAggregationInput = {
@@ -213,6 +216,7 @@ export type usersCreateInput = {
   created_at?: Date | string
   memberships?: Prisma.organization_membershipsCreateNestedManyWithoutUserInput
   started_staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutStarted_byInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutCreated_byInput
 }
 
 export type usersUncheckedCreateInput = {
@@ -221,6 +225,7 @@ export type usersUncheckedCreateInput = {
   created_at?: Date | string
   memberships?: Prisma.organization_membershipsUncheckedCreateNestedManyWithoutUserInput
   started_staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutStarted_byInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutCreated_byInput
 }
 
 export type usersUpdateInput = {
@@ -229,6 +234,7 @@ export type usersUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.organization_membershipsUpdateManyWithoutUserNestedInput
   started_staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutStarted_byNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutCreated_byNestedInput
 }
 
 export type usersUncheckedUpdateInput = {
@@ -237,6 +243,7 @@ export type usersUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.organization_membershipsUncheckedUpdateManyWithoutUserNestedInput
   started_staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutStarted_byNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutCreated_byNestedInput
 }
 
 export type usersCreateManyInput = {
@@ -315,11 +322,28 @@ export type usersUpdateOneWithoutStarted_staging_sessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutStarted_staging_sessionsInput, Prisma.usersUpdateWithoutStarted_staging_sessionsInput>, Prisma.usersUncheckedUpdateWithoutStarted_staging_sessionsInput>
 }
 
+export type usersCreateNestedOneWithoutInventoryTransactionsInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutInventoryTransactionsInput, Prisma.usersUncheckedCreateWithoutInventoryTransactionsInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutInventoryTransactionsInput
+  connect?: Prisma.usersWhereUniqueInput
+}
+
+export type usersUpdateOneWithoutInventoryTransactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutInventoryTransactionsInput, Prisma.usersUncheckedCreateWithoutInventoryTransactionsInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutInventoryTransactionsInput
+  upsert?: Prisma.usersUpsertWithoutInventoryTransactionsInput
+  disconnect?: Prisma.usersWhereInput | boolean
+  delete?: Prisma.usersWhereInput | boolean
+  connect?: Prisma.usersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutInventoryTransactionsInput, Prisma.usersUpdateWithoutInventoryTransactionsInput>, Prisma.usersUncheckedUpdateWithoutInventoryTransactionsInput>
+}
+
 export type usersCreateWithoutMembershipsInput = {
   id: string
   email: string
   created_at?: Date | string
   started_staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutStarted_byInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutCreated_byInput
 }
 
 export type usersUncheckedCreateWithoutMembershipsInput = {
@@ -327,6 +351,7 @@ export type usersUncheckedCreateWithoutMembershipsInput = {
   email: string
   created_at?: Date | string
   started_staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutStarted_byInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutCreated_byInput
 }
 
 export type usersCreateOrConnectWithoutMembershipsInput = {
@@ -350,6 +375,7 @@ export type usersUpdateWithoutMembershipsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   started_staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutStarted_byNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutCreated_byNestedInput
 }
 
 export type usersUncheckedUpdateWithoutMembershipsInput = {
@@ -357,6 +383,7 @@ export type usersUncheckedUpdateWithoutMembershipsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   started_staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutStarted_byNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutCreated_byNestedInput
 }
 
 export type usersCreateWithoutStarted_staging_sessionsInput = {
@@ -364,6 +391,7 @@ export type usersCreateWithoutStarted_staging_sessionsInput = {
   email: string
   created_at?: Date | string
   memberships?: Prisma.organization_membershipsCreateNestedManyWithoutUserInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutCreated_byInput
 }
 
 export type usersUncheckedCreateWithoutStarted_staging_sessionsInput = {
@@ -371,6 +399,7 @@ export type usersUncheckedCreateWithoutStarted_staging_sessionsInput = {
   email: string
   created_at?: Date | string
   memberships?: Prisma.organization_membershipsUncheckedCreateNestedManyWithoutUserInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutCreated_byInput
 }
 
 export type usersCreateOrConnectWithoutStarted_staging_sessionsInput = {
@@ -394,6 +423,7 @@ export type usersUpdateWithoutStarted_staging_sessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.organization_membershipsUpdateManyWithoutUserNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutCreated_byNestedInput
 }
 
 export type usersUncheckedUpdateWithoutStarted_staging_sessionsInput = {
@@ -401,6 +431,55 @@ export type usersUncheckedUpdateWithoutStarted_staging_sessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.organization_membershipsUncheckedUpdateManyWithoutUserNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutCreated_byNestedInput
+}
+
+export type usersCreateWithoutInventoryTransactionsInput = {
+  id: string
+  email: string
+  created_at?: Date | string
+  memberships?: Prisma.organization_membershipsCreateNestedManyWithoutUserInput
+  started_staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutStarted_byInput
+}
+
+export type usersUncheckedCreateWithoutInventoryTransactionsInput = {
+  id: string
+  email: string
+  created_at?: Date | string
+  memberships?: Prisma.organization_membershipsUncheckedCreateNestedManyWithoutUserInput
+  started_staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutStarted_byInput
+}
+
+export type usersCreateOrConnectWithoutInventoryTransactionsInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutInventoryTransactionsInput, Prisma.usersUncheckedCreateWithoutInventoryTransactionsInput>
+}
+
+export type usersUpsertWithoutInventoryTransactionsInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutInventoryTransactionsInput, Prisma.usersUncheckedUpdateWithoutInventoryTransactionsInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutInventoryTransactionsInput, Prisma.usersUncheckedCreateWithoutInventoryTransactionsInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutInventoryTransactionsInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutInventoryTransactionsInput, Prisma.usersUncheckedUpdateWithoutInventoryTransactionsInput>
+}
+
+export type usersUpdateWithoutInventoryTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.organization_membershipsUpdateManyWithoutUserNestedInput
+  started_staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutStarted_byNestedInput
+}
+
+export type usersUncheckedUpdateWithoutInventoryTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.organization_membershipsUncheckedUpdateManyWithoutUserNestedInput
+  started_staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutStarted_byNestedInput
 }
 
 
@@ -411,11 +490,13 @@ export type usersUncheckedUpdateWithoutStarted_staging_sessionsInput = {
 export type UsersCountOutputType = {
   memberships: number
   started_staging_sessions: number
+  inventoryTransactions: number
 }
 
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | UsersCountOutputTypeCountMembershipsArgs
   started_staging_sessions?: boolean | UsersCountOutputTypeCountStarted_staging_sessionsArgs
+  inventoryTransactions?: boolean | UsersCountOutputTypeCountInventoryTransactionsArgs
 }
 
 /**
@@ -442,6 +523,13 @@ export type UsersCountOutputTypeCountStarted_staging_sessionsArgs<ExtArgs extend
   where?: Prisma.staging_sessionsWhereInput
 }
 
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountInventoryTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.inventory_transactionsWhereInput
+}
+
 
 export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -449,6 +537,7 @@ export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   created_at?: boolean
   memberships?: boolean | Prisma.users$membershipsArgs<ExtArgs>
   started_staging_sessions?: boolean | Prisma.users$started_staging_sessionsArgs<ExtArgs>
+  inventoryTransactions?: boolean | Prisma.users$inventoryTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["users"]>
 
@@ -474,6 +563,7 @@ export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type usersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.users$membershipsArgs<ExtArgs>
   started_staging_sessions?: boolean | Prisma.users$started_staging_sessionsArgs<ExtArgs>
+  inventoryTransactions?: boolean | Prisma.users$inventoryTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type usersIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -484,6 +574,7 @@ export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     memberships: Prisma.$organization_membershipsPayload<ExtArgs>[]
     started_staging_sessions: Prisma.$staging_sessionsPayload<ExtArgs>[]
+    inventoryTransactions: Prisma.$inventory_transactionsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -885,6 +976,7 @@ export interface Prisma__usersClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   memberships<T extends Prisma.users$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$organization_membershipsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   started_staging_sessions<T extends Prisma.users$started_staging_sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$started_staging_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$staging_sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inventoryTransactions<T extends Prisma.users$inventoryTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$inventoryTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$inventory_transactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1355,6 +1447,30 @@ export type users$started_staging_sessionsArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.Staging_sessionsScalarFieldEnum | Prisma.Staging_sessionsScalarFieldEnum[]
+}
+
+/**
+ * users.inventoryTransactions
+ */
+export type users$inventoryTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the inventory_transactions
+   */
+  select?: Prisma.inventory_transactionsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the inventory_transactions
+   */
+  omit?: Prisma.inventory_transactionsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.inventory_transactionsInclude<ExtArgs> | null
+  where?: Prisma.inventory_transactionsWhereInput
+  orderBy?: Prisma.inventory_transactionsOrderByWithRelationInput | Prisma.inventory_transactionsOrderByWithRelationInput[]
+  cursor?: Prisma.inventory_transactionsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Inventory_transactionsScalarFieldEnum | Prisma.Inventory_transactionsScalarFieldEnum[]
 }
 
 /**

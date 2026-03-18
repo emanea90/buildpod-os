@@ -2,13 +2,13 @@
 
 import { AppShell } from "../../components/app-shell";
 import {
-    Search,
-    TriangleAlert,
-    Plus,
-    Minus,
-    PackagePlus,
-    Trash2,
-  } from "lucide-react";
+  Search,
+  TriangleAlert,
+  Plus,
+  Minus,
+  PackagePlus,
+  Archive,
+} from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 type InventoryItem = {
@@ -30,10 +30,28 @@ type InventoryItem = {
   }[];
 };
 
+type InventoryTransaction = {
+  id: string;
+  transaction_type: string;
+  quantity_delta: number;
+  quantity_after: number;
+  note: string | null;
+  created_at: string;
+  inventory_item: {
+    name: string;
+  };
+  location: {
+    name: string;
+    code: string | null;
+  };
+};
+
 export default function InventoryPage() {
   const [items, setItems] = useState<InventoryItem[]>([]);
+  const [transactions, setTransactions] = useState<InventoryTransaction[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+
   const [form, setForm] = useState({
     name: "",
     sku: "",
@@ -48,9 +66,17 @@ export default function InventoryPage() {
 
   async function loadInventory() {
     setLoading(true);
-    const res = await fetch("/api/inventory");
-    const json = await res.json();
-    setItems(json.data ?? []);
+
+    const [inventoryRes, transactionRes] = await Promise.all([
+      fetch("/api/inventory"),
+      fetch("/api/inventory/transactions"),
+    ]);
+
+    const inventoryJson = await inventoryRes.json();
+    const transactionJson = await transactionRes.json();
+
+    setItems(inventoryJson.data ?? []);
+    setTransactions(transactionJson.data ?? []);
     setLoading(false);
   }
 
@@ -143,20 +169,14 @@ export default function InventoryPage() {
     await loadInventory();
   }
 
-  async function removeItem(item: InventoryItem) {
-    const confirmed = window.confirm(
-      `Remove "${item.name}" from active inventory?`
-    );
-
-    if (!confirmed) return;
-
+  async function deactivateItem(itemId: string) {
     await fetch("/api/inventory", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        inventory_item_id: item.id,
+        inventory_item_id: itemId,
       }),
     });
 
@@ -338,7 +358,7 @@ export default function InventoryPage() {
             <div>Location</div>
             <div>Stock State</div>
             <div>Adjust</div>
-            <div>Remove</div>
+            <div>Archive</div>
           </div>
 
           {loading ? (
@@ -425,18 +445,90 @@ export default function InventoryPage() {
                       <Plus className="h-4 w-4" />
                     </button>
                   </div>
+
                   <div>
-  <button
-    onClick={() => removeItem(item)}
-    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-background text-red-600 transition hover:border-red-400 hover:bg-red-50 dark:text-red-300 dark:hover:bg-red-950/20"
-  >
-    <Trash2 className="h-4 w-4" />
-  </button>
-</div>
+                    <button
+                      onClick={() => deactivateItem(item.id)}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-background text-foreground transition hover:border-red-400 hover:text-red-500"
+                      title="Archive item"
+                    >
+                      <Archive className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
               );
             })
           )}
+        </div>
+
+        <div className="mt-6 rounded-3xl border border-border bg-card shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+          <div className="border-b border-border px-6 py-4">
+            <h3 className="text-lg font-semibold text-foreground">
+              Recent inventory activity
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Audit trail for stock changes and future scan events
+            </p>
+          </div>
+
+          <div className="divide-y divide-border">
+            {transactions.length === 0 ? (
+              <div className="px-6 py-6 text-sm text-muted-foreground">
+                No transactions yet.
+              </div>
+            ) : (
+              transactions.map((txn) => {
+                const positive = txn.quantity_delta > 0;
+                const neutral = txn.quantity_delta === 0;
+
+                return (
+                  <div
+                    key={txn.id}
+                    className="grid grid-cols-6 gap-4 px-6 py-4 text-sm"
+                  >
+                    <div className="font-medium text-foreground">
+                      {txn.inventory_item.name}
+                    </div>
+
+                    <div className="capitalize text-foreground">
+                      {txn.transaction_type}
+                    </div>
+
+                    <div
+                      className={
+                        neutral
+                          ? "text-muted-foreground"
+                          : positive
+                            ? "font-semibold text-green-700 dark:text-green-300"
+                            : "font-semibold text-red-700 dark:text-red-300"
+                      }
+                    >
+                      {neutral
+                        ? "0"
+                        : positive
+                          ? `+${txn.quantity_delta}`
+                          : txn.quantity_delta}
+                    </div>
+
+                    <div className="text-foreground">
+                      After: {txn.quantity_after}
+                    </div>
+
+                    <div className="text-foreground">
+                      {txn.location.name}
+                      <div className="mt-1 text-xs text-accent">
+                        {txn.location.code ?? "—"}
+                      </div>
+                    </div>
+
+                    <div className="text-muted-foreground">
+                      {txn.note ?? "—"}
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
     </AppShell>

@@ -89,6 +89,7 @@ export async function PATCH(req: Request) {
     );
   }
 }
+
 export async function DELETE(req: Request) {
   try {
     const body = await req.json();
@@ -105,7 +106,7 @@ export async function DELETE(req: Request) {
     return NextResponse.json(
       {
         success: false,
-        error: "Failed to remove inventory item",
+        error: "Failed to deactivate inventory item",
       },
       { status: 500 }
     );

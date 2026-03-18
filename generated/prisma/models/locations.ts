@@ -210,6 +210,7 @@ export type locationsWhereInput = {
   organization?: Prisma.XOR<Prisma.OrganizationsScalarRelationFilter, Prisma.organizationsWhereInput>
   parent?: Prisma.XOR<Prisma.LocationsNullableScalarRelationFilter, Prisma.locationsWhereInput> | null
   children?: Prisma.LocationsListRelationFilter
+  inventoryTransactions?: Prisma.Inventory_transactionsListRelationFilter
 }
 
 export type locationsOrderByWithRelationInput = {
@@ -225,6 +226,7 @@ export type locationsOrderByWithRelationInput = {
   organization?: Prisma.organizationsOrderByWithRelationInput
   parent?: Prisma.locationsOrderByWithRelationInput
   children?: Prisma.locationsOrderByRelationAggregateInput
+  inventoryTransactions?: Prisma.inventory_transactionsOrderByRelationAggregateInput
 }
 
 export type locationsWhereUniqueInput = Prisma.AtLeast<{
@@ -243,6 +245,7 @@ export type locationsWhereUniqueInput = Prisma.AtLeast<{
   organization?: Prisma.XOR<Prisma.OrganizationsScalarRelationFilter, Prisma.organizationsWhereInput>
   parent?: Prisma.XOR<Prisma.LocationsNullableScalarRelationFilter, Prisma.locationsWhereInput> | null
   children?: Prisma.LocationsListRelationFilter
+  inventoryTransactions?: Prisma.Inventory_transactionsListRelationFilter
 }, "id">
 
 export type locationsOrderByWithAggregationInput = {
@@ -284,6 +287,7 @@ export type locationsCreateInput = {
   organization: Prisma.organizationsCreateNestedOneWithoutLocationsInput
   parent?: Prisma.locationsCreateNestedOneWithoutChildrenInput
   children?: Prisma.locationsCreateNestedManyWithoutParentInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutLocationInput
 }
 
 export type locationsUncheckedCreateInput = {
@@ -297,6 +301,7 @@ export type locationsUncheckedCreateInput = {
   updated_at?: Date | string
   inventory_balances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutLocationInput
   children?: Prisma.locationsUncheckedCreateNestedManyWithoutParentInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutLocationInput
 }
 
 export type locationsUpdateInput = {
@@ -310,6 +315,7 @@ export type locationsUpdateInput = {
   organization?: Prisma.organizationsUpdateOneRequiredWithoutLocationsNestedInput
   parent?: Prisma.locationsUpdateOneWithoutChildrenNestedInput
   children?: Prisma.locationsUpdateManyWithoutParentNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsUncheckedUpdateInput = {
@@ -323,6 +329,7 @@ export type locationsUncheckedUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inventory_balances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutLocationNestedInput
   children?: Prisma.locationsUncheckedUpdateManyWithoutParentNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsCreateManyInput = {
@@ -527,6 +534,20 @@ export type locationsUpdateOneRequiredWithoutInventory_balancesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.locationsUpdateToOneWithWhereWithoutInventory_balancesInput, Prisma.locationsUpdateWithoutInventory_balancesInput>, Prisma.locationsUncheckedUpdateWithoutInventory_balancesInput>
 }
 
+export type locationsCreateNestedOneWithoutInventoryTransactionsInput = {
+  create?: Prisma.XOR<Prisma.locationsCreateWithoutInventoryTransactionsInput, Prisma.locationsUncheckedCreateWithoutInventoryTransactionsInput>
+  connectOrCreate?: Prisma.locationsCreateOrConnectWithoutInventoryTransactionsInput
+  connect?: Prisma.locationsWhereUniqueInput
+}
+
+export type locationsUpdateOneRequiredWithoutInventoryTransactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.locationsCreateWithoutInventoryTransactionsInput, Prisma.locationsUncheckedCreateWithoutInventoryTransactionsInput>
+  connectOrCreate?: Prisma.locationsCreateOrConnectWithoutInventoryTransactionsInput
+  upsert?: Prisma.locationsUpsertWithoutInventoryTransactionsInput
+  connect?: Prisma.locationsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.locationsUpdateToOneWithWhereWithoutInventoryTransactionsInput, Prisma.locationsUpdateWithoutInventoryTransactionsInput>, Prisma.locationsUncheckedUpdateWithoutInventoryTransactionsInput>
+}
+
 export type locationsCreateWithoutOrganizationInput = {
   id?: string
   name: string
@@ -537,6 +558,7 @@ export type locationsCreateWithoutOrganizationInput = {
   inventory_balances?: Prisma.inventory_balancesCreateNestedManyWithoutLocationInput
   parent?: Prisma.locationsCreateNestedOneWithoutChildrenInput
   children?: Prisma.locationsCreateNestedManyWithoutParentInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutLocationInput
 }
 
 export type locationsUncheckedCreateWithoutOrganizationInput = {
@@ -549,6 +571,7 @@ export type locationsUncheckedCreateWithoutOrganizationInput = {
   updated_at?: Date | string
   inventory_balances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutLocationInput
   children?: Prisma.locationsUncheckedCreateNestedManyWithoutParentInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutLocationInput
 }
 
 export type locationsCreateOrConnectWithoutOrganizationInput = {
@@ -601,6 +624,7 @@ export type locationsCreateWithoutChildrenInput = {
   inventory_balances?: Prisma.inventory_balancesCreateNestedManyWithoutLocationInput
   organization: Prisma.organizationsCreateNestedOneWithoutLocationsInput
   parent?: Prisma.locationsCreateNestedOneWithoutChildrenInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutLocationInput
 }
 
 export type locationsUncheckedCreateWithoutChildrenInput = {
@@ -613,6 +637,7 @@ export type locationsUncheckedCreateWithoutChildrenInput = {
   created_at?: Date | string
   updated_at?: Date | string
   inventory_balances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutLocationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutLocationInput
 }
 
 export type locationsCreateOrConnectWithoutChildrenInput = {
@@ -630,6 +655,7 @@ export type locationsCreateWithoutParentInput = {
   inventory_balances?: Prisma.inventory_balancesCreateNestedManyWithoutLocationInput
   organization: Prisma.organizationsCreateNestedOneWithoutLocationsInput
   children?: Prisma.locationsCreateNestedManyWithoutParentInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutLocationInput
 }
 
 export type locationsUncheckedCreateWithoutParentInput = {
@@ -642,6 +668,7 @@ export type locationsUncheckedCreateWithoutParentInput = {
   updated_at?: Date | string
   inventory_balances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutLocationInput
   children?: Prisma.locationsUncheckedCreateNestedManyWithoutParentInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutLocationInput
 }
 
 export type locationsCreateOrConnectWithoutParentInput = {
@@ -675,6 +702,7 @@ export type locationsUpdateWithoutChildrenInput = {
   inventory_balances?: Prisma.inventory_balancesUpdateManyWithoutLocationNestedInput
   organization?: Prisma.organizationsUpdateOneRequiredWithoutLocationsNestedInput
   parent?: Prisma.locationsUpdateOneWithoutChildrenNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsUncheckedUpdateWithoutChildrenInput = {
@@ -687,6 +715,7 @@ export type locationsUncheckedUpdateWithoutChildrenInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inventory_balances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutLocationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsUpsertWithWhereUniqueWithoutParentInput = {
@@ -715,6 +744,7 @@ export type locationsCreateWithoutInventory_balancesInput = {
   organization: Prisma.organizationsCreateNestedOneWithoutLocationsInput
   parent?: Prisma.locationsCreateNestedOneWithoutChildrenInput
   children?: Prisma.locationsCreateNestedManyWithoutParentInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutLocationInput
 }
 
 export type locationsUncheckedCreateWithoutInventory_balancesInput = {
@@ -727,6 +757,7 @@ export type locationsUncheckedCreateWithoutInventory_balancesInput = {
   created_at?: Date | string
   updated_at?: Date | string
   children?: Prisma.locationsUncheckedCreateNestedManyWithoutParentInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutLocationInput
 }
 
 export type locationsCreateOrConnectWithoutInventory_balancesInput = {
@@ -755,6 +786,7 @@ export type locationsUpdateWithoutInventory_balancesInput = {
   organization?: Prisma.organizationsUpdateOneRequiredWithoutLocationsNestedInput
   parent?: Prisma.locationsUpdateOneWithoutChildrenNestedInput
   children?: Prisma.locationsUpdateManyWithoutParentNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsUncheckedUpdateWithoutInventory_balancesInput = {
@@ -766,6 +798,75 @@ export type locationsUncheckedUpdateWithoutInventory_balancesInput = {
   parent_location_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.locationsUncheckedUpdateManyWithoutParentNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutLocationNestedInput
+}
+
+export type locationsCreateWithoutInventoryTransactionsInput = {
+  id?: string
+  name: string
+  code?: string | null
+  location_type: $Enums.location_type
+  created_at?: Date | string
+  updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesCreateNestedManyWithoutLocationInput
+  organization: Prisma.organizationsCreateNestedOneWithoutLocationsInput
+  parent?: Prisma.locationsCreateNestedOneWithoutChildrenInput
+  children?: Prisma.locationsCreateNestedManyWithoutParentInput
+}
+
+export type locationsUncheckedCreateWithoutInventoryTransactionsInput = {
+  id?: string
+  organization_id: string
+  name: string
+  code?: string | null
+  location_type: $Enums.location_type
+  parent_location_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutLocationInput
+  children?: Prisma.locationsUncheckedCreateNestedManyWithoutParentInput
+}
+
+export type locationsCreateOrConnectWithoutInventoryTransactionsInput = {
+  where: Prisma.locationsWhereUniqueInput
+  create: Prisma.XOR<Prisma.locationsCreateWithoutInventoryTransactionsInput, Prisma.locationsUncheckedCreateWithoutInventoryTransactionsInput>
+}
+
+export type locationsUpsertWithoutInventoryTransactionsInput = {
+  update: Prisma.XOR<Prisma.locationsUpdateWithoutInventoryTransactionsInput, Prisma.locationsUncheckedUpdateWithoutInventoryTransactionsInput>
+  create: Prisma.XOR<Prisma.locationsCreateWithoutInventoryTransactionsInput, Prisma.locationsUncheckedCreateWithoutInventoryTransactionsInput>
+  where?: Prisma.locationsWhereInput
+}
+
+export type locationsUpdateToOneWithWhereWithoutInventoryTransactionsInput = {
+  where?: Prisma.locationsWhereInput
+  data: Prisma.XOR<Prisma.locationsUpdateWithoutInventoryTransactionsInput, Prisma.locationsUncheckedUpdateWithoutInventoryTransactionsInput>
+}
+
+export type locationsUpdateWithoutInventoryTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUpdateManyWithoutLocationNestedInput
+  organization?: Prisma.organizationsUpdateOneRequiredWithoutLocationsNestedInput
+  parent?: Prisma.locationsUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.locationsUpdateManyWithoutParentNestedInput
+}
+
+export type locationsUncheckedUpdateWithoutInventoryTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organization_id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location_type?: Prisma.Enumlocation_typeFieldUpdateOperationsInput | $Enums.location_type
+  parent_location_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inventory_balances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutLocationNestedInput
   children?: Prisma.locationsUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -789,6 +890,7 @@ export type locationsUpdateWithoutOrganizationInput = {
   inventory_balances?: Prisma.inventory_balancesUpdateManyWithoutLocationNestedInput
   parent?: Prisma.locationsUpdateOneWithoutChildrenNestedInput
   children?: Prisma.locationsUpdateManyWithoutParentNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsUncheckedUpdateWithoutOrganizationInput = {
@@ -801,6 +903,7 @@ export type locationsUncheckedUpdateWithoutOrganizationInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inventory_balances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutLocationNestedInput
   children?: Prisma.locationsUncheckedUpdateManyWithoutParentNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsUncheckedUpdateManyWithoutOrganizationInput = {
@@ -833,6 +936,7 @@ export type locationsUpdateWithoutParentInput = {
   inventory_balances?: Prisma.inventory_balancesUpdateManyWithoutLocationNestedInput
   organization?: Prisma.organizationsUpdateOneRequiredWithoutLocationsNestedInput
   children?: Prisma.locationsUpdateManyWithoutParentNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsUncheckedUpdateWithoutParentInput = {
@@ -845,6 +949,7 @@ export type locationsUncheckedUpdateWithoutParentInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inventory_balances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutLocationNestedInput
   children?: Prisma.locationsUncheckedUpdateManyWithoutParentNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutLocationNestedInput
 }
 
 export type locationsUncheckedUpdateManyWithoutParentInput = {
@@ -865,11 +970,13 @@ export type locationsUncheckedUpdateManyWithoutParentInput = {
 export type LocationsCountOutputType = {
   inventory_balances: number
   children: number
+  inventoryTransactions: number
 }
 
 export type LocationsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   inventory_balances?: boolean | LocationsCountOutputTypeCountInventory_balancesArgs
   children?: boolean | LocationsCountOutputTypeCountChildrenArgs
+  inventoryTransactions?: boolean | LocationsCountOutputTypeCountInventoryTransactionsArgs
 }
 
 /**
@@ -896,6 +1003,13 @@ export type LocationsCountOutputTypeCountChildrenArgs<ExtArgs extends runtime.Ty
   where?: Prisma.locationsWhereInput
 }
 
+/**
+ * LocationsCountOutputType without action
+ */
+export type LocationsCountOutputTypeCountInventoryTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.inventory_transactionsWhereInput
+}
+
 
 export type locationsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -910,6 +1024,7 @@ export type locationsSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   organization?: boolean | Prisma.organizationsDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.locations$parentArgs<ExtArgs>
   children?: boolean | Prisma.locations$childrenArgs<ExtArgs>
+  inventoryTransactions?: boolean | Prisma.locations$inventoryTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.LocationsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["locations"]>
 
@@ -956,6 +1071,7 @@ export type locationsInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   organization?: boolean | Prisma.organizationsDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.locations$parentArgs<ExtArgs>
   children?: boolean | Prisma.locations$childrenArgs<ExtArgs>
+  inventoryTransactions?: boolean | Prisma.locations$inventoryTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.LocationsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type locationsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -974,6 +1090,7 @@ export type $locationsPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     organization: Prisma.$organizationsPayload<ExtArgs>
     parent: Prisma.$locationsPayload<ExtArgs> | null
     children: Prisma.$locationsPayload<ExtArgs>[]
+    inventoryTransactions: Prisma.$inventory_transactionsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1382,6 +1499,7 @@ export interface Prisma__locationsClient<T, Null = never, ExtArgs extends runtim
   organization<T extends Prisma.organizationsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.organizationsDefaultArgs<ExtArgs>>): Prisma.Prisma__organizationsClient<runtime.Types.Result.GetResult<Prisma.$organizationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   parent<T extends Prisma.locations$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.locations$parentArgs<ExtArgs>>): Prisma.Prisma__locationsClient<runtime.Types.Result.GetResult<Prisma.$locationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   children<T extends Prisma.locations$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.locations$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$locationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inventoryTransactions<T extends Prisma.locations$inventoryTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.locations$inventoryTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$inventory_transactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1884,6 +2002,30 @@ export type locations$childrenArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.LocationsScalarFieldEnum | Prisma.LocationsScalarFieldEnum[]
+}
+
+/**
+ * locations.inventoryTransactions
+ */
+export type locations$inventoryTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the inventory_transactions
+   */
+  select?: Prisma.inventory_transactionsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the inventory_transactions
+   */
+  omit?: Prisma.inventory_transactionsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.inventory_transactionsInclude<ExtArgs> | null
+  where?: Prisma.inventory_transactionsWhereInput
+  orderBy?: Prisma.inventory_transactionsOrderByWithRelationInput | Prisma.inventory_transactionsOrderByWithRelationInput[]
+  cursor?: Prisma.inventory_transactionsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Inventory_transactionsScalarFieldEnum | Prisma.Inventory_transactionsScalarFieldEnum[]
 }
 
 /**

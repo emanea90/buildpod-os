@@ -183,6 +183,7 @@ export type organizationsWhereInput = {
   staging_sessions?: Prisma.Staging_sessionsListRelationFilter
   inventoryItems?: Prisma.Inventory_itemsListRelationFilter
   inventoryBalances?: Prisma.Inventory_balancesListRelationFilter
+  inventoryTransactions?: Prisma.Inventory_transactionsListRelationFilter
 }
 
 export type organizationsOrderByWithRelationInput = {
@@ -199,6 +200,7 @@ export type organizationsOrderByWithRelationInput = {
   staging_sessions?: Prisma.staging_sessionsOrderByRelationAggregateInput
   inventoryItems?: Prisma.inventory_itemsOrderByRelationAggregateInput
   inventoryBalances?: Prisma.inventory_balancesOrderByRelationAggregateInput
+  inventoryTransactions?: Prisma.inventory_transactionsOrderByRelationAggregateInput
 }
 
 export type organizationsWhereUniqueInput = Prisma.AtLeast<{
@@ -218,6 +220,7 @@ export type organizationsWhereUniqueInput = Prisma.AtLeast<{
   staging_sessions?: Prisma.Staging_sessionsListRelationFilter
   inventoryItems?: Prisma.Inventory_itemsListRelationFilter
   inventoryBalances?: Prisma.Inventory_balancesListRelationFilter
+  inventoryTransactions?: Prisma.Inventory_transactionsListRelationFilter
 }, "id">
 
 export type organizationsOrderByWithAggregationInput = {
@@ -254,6 +257,7 @@ export type organizationsCreateInput = {
   staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateInput = {
@@ -270,6 +274,7 @@ export type organizationsUncheckedCreateInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUpdateInput = {
@@ -286,6 +291,7 @@ export type organizationsUpdateInput = {
   staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateInput = {
@@ -302,6 +308,7 @@ export type organizationsUncheckedUpdateInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsCreateManyInput = {
@@ -485,6 +492,20 @@ export type organizationsUpdateOneRequiredWithoutInventoryBalancesNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.organizationsUpdateToOneWithWhereWithoutInventoryBalancesInput, Prisma.organizationsUpdateWithoutInventoryBalancesInput>, Prisma.organizationsUncheckedUpdateWithoutInventoryBalancesInput>
 }
 
+export type organizationsCreateNestedOneWithoutInventoryTransactionsInput = {
+  create?: Prisma.XOR<Prisma.organizationsCreateWithoutInventoryTransactionsInput, Prisma.organizationsUncheckedCreateWithoutInventoryTransactionsInput>
+  connectOrCreate?: Prisma.organizationsCreateOrConnectWithoutInventoryTransactionsInput
+  connect?: Prisma.organizationsWhereUniqueInput
+}
+
+export type organizationsUpdateOneRequiredWithoutInventoryTransactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.organizationsCreateWithoutInventoryTransactionsInput, Prisma.organizationsUncheckedCreateWithoutInventoryTransactionsInput>
+  connectOrCreate?: Prisma.organizationsCreateOrConnectWithoutInventoryTransactionsInput
+  upsert?: Prisma.organizationsUpsertWithoutInventoryTransactionsInput
+  connect?: Prisma.organizationsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.organizationsUpdateToOneWithWhereWithoutInventoryTransactionsInput, Prisma.organizationsUpdateWithoutInventoryTransactionsInput>, Prisma.organizationsUncheckedUpdateWithoutInventoryTransactionsInput>
+}
+
 export type organizationsCreateWithoutMembershipsInput = {
   id?: string
   name: string
@@ -498,6 +519,7 @@ export type organizationsCreateWithoutMembershipsInput = {
   staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateWithoutMembershipsInput = {
@@ -513,6 +535,7 @@ export type organizationsUncheckedCreateWithoutMembershipsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsCreateOrConnectWithoutMembershipsInput = {
@@ -544,6 +567,7 @@ export type organizationsUpdateWithoutMembershipsInput = {
   staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateWithoutMembershipsInput = {
@@ -559,6 +583,7 @@ export type organizationsUncheckedUpdateWithoutMembershipsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsCreateWithoutAssetsInput = {
@@ -574,6 +599,7 @@ export type organizationsCreateWithoutAssetsInput = {
   staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateWithoutAssetsInput = {
@@ -589,6 +615,7 @@ export type organizationsUncheckedCreateWithoutAssetsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsCreateOrConnectWithoutAssetsInput = {
@@ -620,6 +647,7 @@ export type organizationsUpdateWithoutAssetsInput = {
   staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateWithoutAssetsInput = {
@@ -635,6 +663,7 @@ export type organizationsUncheckedUpdateWithoutAssetsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsCreateWithoutJobsInput = {
@@ -650,6 +679,7 @@ export type organizationsCreateWithoutJobsInput = {
   staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateWithoutJobsInput = {
@@ -665,6 +695,7 @@ export type organizationsUncheckedCreateWithoutJobsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsCreateOrConnectWithoutJobsInput = {
@@ -696,6 +727,7 @@ export type organizationsUpdateWithoutJobsInput = {
   staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateWithoutJobsInput = {
@@ -711,6 +743,7 @@ export type organizationsUncheckedUpdateWithoutJobsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsCreateWithoutMaintenanceInput = {
@@ -726,6 +759,7 @@ export type organizationsCreateWithoutMaintenanceInput = {
   staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateWithoutMaintenanceInput = {
@@ -741,6 +775,7 @@ export type organizationsUncheckedCreateWithoutMaintenanceInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsCreateOrConnectWithoutMaintenanceInput = {
@@ -772,6 +807,7 @@ export type organizationsUpdateWithoutMaintenanceInput = {
   staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateWithoutMaintenanceInput = {
@@ -787,6 +823,7 @@ export type organizationsUncheckedUpdateWithoutMaintenanceInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsCreateWithoutEventsInput = {
@@ -802,6 +839,7 @@ export type organizationsCreateWithoutEventsInput = {
   staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateWithoutEventsInput = {
@@ -817,6 +855,7 @@ export type organizationsUncheckedCreateWithoutEventsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsCreateOrConnectWithoutEventsInput = {
@@ -848,6 +887,7 @@ export type organizationsUpdateWithoutEventsInput = {
   staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateWithoutEventsInput = {
@@ -863,6 +903,7 @@ export type organizationsUncheckedUpdateWithoutEventsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsCreateWithoutLocationsInput = {
@@ -878,6 +919,7 @@ export type organizationsCreateWithoutLocationsInput = {
   staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateWithoutLocationsInput = {
@@ -893,6 +935,7 @@ export type organizationsUncheckedCreateWithoutLocationsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsCreateOrConnectWithoutLocationsInput = {
@@ -924,6 +967,7 @@ export type organizationsUpdateWithoutLocationsInput = {
   staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateWithoutLocationsInput = {
@@ -939,6 +983,7 @@ export type organizationsUncheckedUpdateWithoutLocationsInput = {
   staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsCreateWithoutStaging_sessionsInput = {
@@ -954,6 +999,7 @@ export type organizationsCreateWithoutStaging_sessionsInput = {
   locations?: Prisma.locationsCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateWithoutStaging_sessionsInput = {
@@ -969,6 +1015,7 @@ export type organizationsUncheckedCreateWithoutStaging_sessionsInput = {
   locations?: Prisma.locationsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsCreateOrConnectWithoutStaging_sessionsInput = {
@@ -1000,6 +1047,7 @@ export type organizationsUpdateWithoutStaging_sessionsInput = {
   locations?: Prisma.locationsUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateWithoutStaging_sessionsInput = {
@@ -1015,6 +1063,7 @@ export type organizationsUncheckedUpdateWithoutStaging_sessionsInput = {
   locations?: Prisma.locationsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsCreateWithoutInventoryItemsInput = {
@@ -1030,6 +1079,7 @@ export type organizationsCreateWithoutInventoryItemsInput = {
   locations?: Prisma.locationsCreateNestedManyWithoutOrganizationInput
   staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateWithoutInventoryItemsInput = {
@@ -1045,6 +1095,7 @@ export type organizationsUncheckedCreateWithoutInventoryItemsInput = {
   locations?: Prisma.locationsUncheckedCreateNestedManyWithoutOrganizationInput
   staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsCreateOrConnectWithoutInventoryItemsInput = {
@@ -1076,6 +1127,7 @@ export type organizationsUpdateWithoutInventoryItemsInput = {
   locations?: Prisma.locationsUpdateManyWithoutOrganizationNestedInput
   staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateWithoutInventoryItemsInput = {
@@ -1091,6 +1143,7 @@ export type organizationsUncheckedUpdateWithoutInventoryItemsInput = {
   locations?: Prisma.locationsUncheckedUpdateManyWithoutOrganizationNestedInput
   staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsCreateWithoutInventoryBalancesInput = {
@@ -1106,6 +1159,7 @@ export type organizationsCreateWithoutInventoryBalancesInput = {
   locations?: Prisma.locationsCreateNestedManyWithoutOrganizationInput
   staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsUncheckedCreateWithoutInventoryBalancesInput = {
@@ -1121,6 +1175,7 @@ export type organizationsUncheckedCreateWithoutInventoryBalancesInput = {
   locations?: Prisma.locationsUncheckedCreateNestedManyWithoutOrganizationInput
   staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
   inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type organizationsCreateOrConnectWithoutInventoryBalancesInput = {
@@ -1152,6 +1207,7 @@ export type organizationsUpdateWithoutInventoryBalancesInput = {
   locations?: Prisma.locationsUpdateManyWithoutOrganizationNestedInput
   staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUpdateManyWithoutOrganizationNestedInput
 }
 
 export type organizationsUncheckedUpdateWithoutInventoryBalancesInput = {
@@ -1167,6 +1223,87 @@ export type organizationsUncheckedUpdateWithoutInventoryBalancesInput = {
   locations?: Prisma.locationsUncheckedUpdateManyWithoutOrganizationNestedInput
   staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
   inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryTransactions?: Prisma.inventory_transactionsUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type organizationsCreateWithoutInventoryTransactionsInput = {
+  id?: string
+  name: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  memberships?: Prisma.organization_membershipsCreateNestedManyWithoutOrganizationInput
+  assets?: Prisma.assetsCreateNestedManyWithoutOrganizationInput
+  jobs?: Prisma.jobsCreateNestedManyWithoutOrganizationInput
+  events?: Prisma.eventsCreateNestedManyWithoutOrganizationInput
+  maintenance?: Prisma.maintenance_eventsCreateNestedManyWithoutOrganizationInput
+  locations?: Prisma.locationsCreateNestedManyWithoutOrganizationInput
+  staging_sessions?: Prisma.staging_sessionsCreateNestedManyWithoutOrganizationInput
+  inventoryItems?: Prisma.inventory_itemsCreateNestedManyWithoutOrganizationInput
+  inventoryBalances?: Prisma.inventory_balancesCreateNestedManyWithoutOrganizationInput
+}
+
+export type organizationsUncheckedCreateWithoutInventoryTransactionsInput = {
+  id?: string
+  name: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  memberships?: Prisma.organization_membershipsUncheckedCreateNestedManyWithoutOrganizationInput
+  assets?: Prisma.assetsUncheckedCreateNestedManyWithoutOrganizationInput
+  jobs?: Prisma.jobsUncheckedCreateNestedManyWithoutOrganizationInput
+  events?: Prisma.eventsUncheckedCreateNestedManyWithoutOrganizationInput
+  maintenance?: Prisma.maintenance_eventsUncheckedCreateNestedManyWithoutOrganizationInput
+  locations?: Prisma.locationsUncheckedCreateNestedManyWithoutOrganizationInput
+  staging_sessions?: Prisma.staging_sessionsUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryItems?: Prisma.inventory_itemsUncheckedCreateNestedManyWithoutOrganizationInput
+  inventoryBalances?: Prisma.inventory_balancesUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type organizationsCreateOrConnectWithoutInventoryTransactionsInput = {
+  where: Prisma.organizationsWhereUniqueInput
+  create: Prisma.XOR<Prisma.organizationsCreateWithoutInventoryTransactionsInput, Prisma.organizationsUncheckedCreateWithoutInventoryTransactionsInput>
+}
+
+export type organizationsUpsertWithoutInventoryTransactionsInput = {
+  update: Prisma.XOR<Prisma.organizationsUpdateWithoutInventoryTransactionsInput, Prisma.organizationsUncheckedUpdateWithoutInventoryTransactionsInput>
+  create: Prisma.XOR<Prisma.organizationsCreateWithoutInventoryTransactionsInput, Prisma.organizationsUncheckedCreateWithoutInventoryTransactionsInput>
+  where?: Prisma.organizationsWhereInput
+}
+
+export type organizationsUpdateToOneWithWhereWithoutInventoryTransactionsInput = {
+  where?: Prisma.organizationsWhereInput
+  data: Prisma.XOR<Prisma.organizationsUpdateWithoutInventoryTransactionsInput, Prisma.organizationsUncheckedUpdateWithoutInventoryTransactionsInput>
+}
+
+export type organizationsUpdateWithoutInventoryTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.organization_membershipsUpdateManyWithoutOrganizationNestedInput
+  assets?: Prisma.assetsUpdateManyWithoutOrganizationNestedInput
+  jobs?: Prisma.jobsUpdateManyWithoutOrganizationNestedInput
+  events?: Prisma.eventsUpdateManyWithoutOrganizationNestedInput
+  maintenance?: Prisma.maintenance_eventsUpdateManyWithoutOrganizationNestedInput
+  locations?: Prisma.locationsUpdateManyWithoutOrganizationNestedInput
+  staging_sessions?: Prisma.staging_sessionsUpdateManyWithoutOrganizationNestedInput
+  inventoryItems?: Prisma.inventory_itemsUpdateManyWithoutOrganizationNestedInput
+  inventoryBalances?: Prisma.inventory_balancesUpdateManyWithoutOrganizationNestedInput
+}
+
+export type organizationsUncheckedUpdateWithoutInventoryTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.organization_membershipsUncheckedUpdateManyWithoutOrganizationNestedInput
+  assets?: Prisma.assetsUncheckedUpdateManyWithoutOrganizationNestedInput
+  jobs?: Prisma.jobsUncheckedUpdateManyWithoutOrganizationNestedInput
+  events?: Prisma.eventsUncheckedUpdateManyWithoutOrganizationNestedInput
+  maintenance?: Prisma.maintenance_eventsUncheckedUpdateManyWithoutOrganizationNestedInput
+  locations?: Prisma.locationsUncheckedUpdateManyWithoutOrganizationNestedInput
+  staging_sessions?: Prisma.staging_sessionsUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryItems?: Prisma.inventory_itemsUncheckedUpdateManyWithoutOrganizationNestedInput
+  inventoryBalances?: Prisma.inventory_balancesUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 
@@ -1184,6 +1321,7 @@ export type OrganizationsCountOutputType = {
   staging_sessions: number
   inventoryItems: number
   inventoryBalances: number
+  inventoryTransactions: number
 }
 
 export type OrganizationsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1196,6 +1334,7 @@ export type OrganizationsCountOutputTypeSelect<ExtArgs extends runtime.Types.Ext
   staging_sessions?: boolean | OrganizationsCountOutputTypeCountStaging_sessionsArgs
   inventoryItems?: boolean | OrganizationsCountOutputTypeCountInventoryItemsArgs
   inventoryBalances?: boolean | OrganizationsCountOutputTypeCountInventoryBalancesArgs
+  inventoryTransactions?: boolean | OrganizationsCountOutputTypeCountInventoryTransactionsArgs
 }
 
 /**
@@ -1271,6 +1410,13 @@ export type OrganizationsCountOutputTypeCountInventoryBalancesArgs<ExtArgs exten
   where?: Prisma.inventory_balancesWhereInput
 }
 
+/**
+ * OrganizationsCountOutputType without action
+ */
+export type OrganizationsCountOutputTypeCountInventoryTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.inventory_transactionsWhereInput
+}
+
 
 export type organizationsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1286,6 +1432,7 @@ export type organizationsSelect<ExtArgs extends runtime.Types.Extensions.Interna
   staging_sessions?: boolean | Prisma.organizations$staging_sessionsArgs<ExtArgs>
   inventoryItems?: boolean | Prisma.organizations$inventoryItemsArgs<ExtArgs>
   inventoryBalances?: boolean | Prisma.organizations$inventoryBalancesArgs<ExtArgs>
+  inventoryTransactions?: boolean | Prisma.organizations$inventoryTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organizations"]>
 
@@ -1321,6 +1468,7 @@ export type organizationsInclude<ExtArgs extends runtime.Types.Extensions.Intern
   staging_sessions?: boolean | Prisma.organizations$staging_sessionsArgs<ExtArgs>
   inventoryItems?: boolean | Prisma.organizations$inventoryItemsArgs<ExtArgs>
   inventoryBalances?: boolean | Prisma.organizations$inventoryBalancesArgs<ExtArgs>
+  inventoryTransactions?: boolean | Prisma.organizations$inventoryTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type organizationsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1338,6 +1486,7 @@ export type $organizationsPayload<ExtArgs extends runtime.Types.Extensions.Inter
     staging_sessions: Prisma.$staging_sessionsPayload<ExtArgs>[]
     inventoryItems: Prisma.$inventory_itemsPayload<ExtArgs>[]
     inventoryBalances: Prisma.$inventory_balancesPayload<ExtArgs>[]
+    inventoryTransactions: Prisma.$inventory_transactionsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1747,6 +1896,7 @@ export interface Prisma__organizationsClient<T, Null = never, ExtArgs extends ru
   staging_sessions<T extends Prisma.organizations$staging_sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.organizations$staging_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$staging_sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inventoryItems<T extends Prisma.organizations$inventoryItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.organizations$inventoryItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$inventory_itemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inventoryBalances<T extends Prisma.organizations$inventoryBalancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.organizations$inventoryBalancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$inventory_balancesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inventoryTransactions<T extends Prisma.organizations$inventoryTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.organizations$inventoryTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$inventory_transactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2386,6 +2536,30 @@ export type organizations$inventoryBalancesArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.Inventory_balancesScalarFieldEnum | Prisma.Inventory_balancesScalarFieldEnum[]
+}
+
+/**
+ * organizations.inventoryTransactions
+ */
+export type organizations$inventoryTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the inventory_transactions
+   */
+  select?: Prisma.inventory_transactionsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the inventory_transactions
+   */
+  omit?: Prisma.inventory_transactionsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.inventory_transactionsInclude<ExtArgs> | null
+  where?: Prisma.inventory_transactionsWhereInput
+  orderBy?: Prisma.inventory_transactionsOrderByWithRelationInput | Prisma.inventory_transactionsOrderByWithRelationInput[]
+  cursor?: Prisma.inventory_transactionsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Inventory_transactionsScalarFieldEnum | Prisma.Inventory_transactionsScalarFieldEnum[]
 }
 
 /**

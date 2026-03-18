@@ -82,3 +82,8 @@ export type inventory_items = Prisma.inventory_itemsModel
  * 
  */
 export type inventory_balances = Prisma.inventory_balancesModel
+/**
+ * Model inventory_transactions
+ * 
+ */
+export type inventory_transactions = Prisma.inventory_transactionsModel

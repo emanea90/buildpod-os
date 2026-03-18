@@ -63,7 +63,8 @@ export const ModelName = {
   staging_sessions: 'staging_sessions',
   staging_session_items: 'staging_session_items',
   inventory_items: 'inventory_items',
-  inventory_balances: 'inventory_balances'
+  inventory_balances: 'inventory_balances',
+  inventory_transactions: 'inventory_transactions'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -253,6 +254,22 @@ export const Inventory_balancesScalarFieldEnum = {
 } as const
 
 export type Inventory_balancesScalarFieldEnum = (typeof Inventory_balancesScalarFieldEnum)[keyof typeof Inventory_balancesScalarFieldEnum]
+
+
+export const Inventory_transactionsScalarFieldEnum = {
+  id: 'id',
+  organization_id: 'organization_id',
+  inventory_item_id: 'inventory_item_id',
+  location_id: 'location_id',
+  transaction_type: 'transaction_type',
+  quantity_delta: 'quantity_delta',
+  quantity_after: 'quantity_after',
+  note: 'note',
+  created_by_user_id: 'created_by_user_id',
+  created_at: 'created_at'
+} as const
+
+export type Inventory_transactionsScalarFieldEnum = (typeof Inventory_transactionsScalarFieldEnum)[keyof typeof Inventory_transactionsScalarFieldEnum]
 
 
 export const SortOrder = {
