@@ -62,6 +62,7 @@ export const ModelName = {
   locations: 'locations',
   staging_sessions: 'staging_sessions',
   staging_session_items: 'staging_session_items',
+  staging_session_events: 'staging_session_events',
   inventory_items: 'inventory_items',
   inventory_balances: 'inventory_balances',
   inventory_transactions: 'inventory_transactions'
@@ -198,6 +199,9 @@ export const Staging_sessionsScalarFieldEnum = {
   notes: 'notes',
   started_at: 'started_at',
   completed_at: 'completed_at',
+  released_at: 'released_at',
+  released_by_user_id: 'released_by_user_id',
+  release_note: 'release_note',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -214,11 +218,31 @@ export const Staging_session_itemsScalarFieldEnum = {
   actual_quantity: 'actual_quantity',
   verification_status: 'verification_status',
   note: 'note',
+  shortage_reason: 'shortage_reason',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
 export type Staging_session_itemsScalarFieldEnum = (typeof Staging_session_itemsScalarFieldEnum)[keyof typeof Staging_session_itemsScalarFieldEnum]
+
+
+export const Staging_session_eventsScalarFieldEnum = {
+  id: 'id',
+  organization_id: 'organization_id',
+  staging_session_id: 'staging_session_id',
+  staging_item_id: 'staging_item_id',
+  event_type: 'event_type',
+  result: 'result',
+  scanned_value: 'scanned_value',
+  message: 'message',
+  previous_status: 'previous_status',
+  next_status: 'next_status',
+  note_snapshot: 'note_snapshot',
+  metadata: 'metadata',
+  created_at: 'created_at'
+} as const
+
+export type Staging_session_eventsScalarFieldEnum = (typeof Staging_session_eventsScalarFieldEnum)[keyof typeof Staging_session_eventsScalarFieldEnum]
 
 
 export const Inventory_itemsScalarFieldEnum = {

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { AppShell } from "../../../components/app-shell";
 import { StagingSessionItemsPanel } from "../../../components/staging-session-items-panel";
-import { getAllStagingSessions } from "../../../services/staging-sessions.service";
+import { StagingGovernancePanel } from "../../../components/staging-governance-panel";
+import { getStagingSessionById } from "../../../services/staging-sessions.service";
 
 type PageProps = {
   params: Promise<{
@@ -24,20 +25,17 @@ function formatDate(value?: Date | string | null) {
 }
 
 function getSessionStatusClasses(status?: string | null) {
-  switch (status) {
-    case "completed":
-    case "COMPLETED":
+  switch (status?.toLowerCase()) {
     case "ready":
-    case "READY":
       return "border-emerald-500/20 bg-emerald-500/10 text-emerald-300";
-    case "in_progress":
-    case "IN_PROGRESS":
-      return "border-amber-500/20 bg-amber-500/10 text-amber-300";
-    case "not_ready":
-    case "NOT_READY":
     case "short":
-    case "SHORT":
       return "border-rose-500/20 bg-rose-500/10 text-rose-300";
+    case "in_progress":
+      return "border-amber-500/20 bg-amber-500/10 text-amber-300";
+    case "dispatched":
+      return "border-sky-500/20 bg-sky-500/10 text-sky-300";
+    case "draft":
+      return "border-border bg-secondary/40 text-muted-foreground";
     default:
       return "border-border bg-secondary/40 text-muted-foreground";
   }
@@ -76,8 +74,7 @@ function getItemSummary(
 
 export default async function StagingSessionDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const sessions = await getAllStagingSessions("");
-  const session = sessions.find((entry) => entry.id === id) ?? null;
+  const session = await getStagingSessionById(id);
 
   if (!session) {
     return (
@@ -101,6 +98,8 @@ export default async function StagingSessionDetailPage({ params }: PageProps) {
   }
 
   const itemSummary = getItemSummary(session.items ?? []);
+  const dispatchLocked = (session.status ?? "").toLowerCase() !== "ready";
+  const blockerCount = itemSummary.missingOrIssue;
 
   return (
     <AppShell>
@@ -177,6 +176,33 @@ export default async function StagingSessionDetailPage({ params }: PageProps) {
                 {session.items?.length ?? 0}
               </div>
             </div>
+
+            <div className="rounded-2xl border border-border bg-background/40 p-4">
+              <div className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Dispatch lock</div>
+              <div
+                className={`mt-2 text-sm font-medium ${
+                  dispatchLocked
+                    ? "text-rose-600 dark:text-rose-300"
+                    : "text-emerald-600 dark:text-emerald-300"
+                }`}
+              >
+                {dispatchLocked ? "Locked" : "Release available"}
+              </div>
+            </div>
+          </div>
+
+          <div
+            className={`mt-6 rounded-2xl border px-4 py-3 text-sm ${
+              dispatchLocked
+                ? "border-rose-500/20 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+                : "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+            }`}
+          >
+            {dispatchLocked
+              ? blockerCount > 0
+                ? `Dispatch locked. ${blockerCount} blocking item${blockerCount === 1 ? "" : "s"} must be resolved before release.`
+                : "Dispatch locked. Session is not yet release-ready."
+              : "Dispatch unlocked. Session is ready for signoff and release."}
           </div>
         </div>
 
@@ -218,7 +244,22 @@ export default async function StagingSessionDetailPage({ params }: PageProps) {
           </div>
         </div>
 
-        <StagingSessionItemsPanel items={session.items ?? []} />
+        <StagingGovernancePanel
+          sessionId={session.id}
+          status={session.status}
+          releasedAt={session.released_at}
+          releasedByUserId={session.released_by_user_id}
+          releaseNote={session.release_note}
+          items={session.items ?? []}
+          events={session.events ?? []}
+        />
+
+        <StagingSessionItemsPanel
+          sessionId={session.id}
+          status={session.status}
+          items={session.items ?? []}
+          events={session.events ?? []}
+        />
       </div>
     </AppShell>
   );

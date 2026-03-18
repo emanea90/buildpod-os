@@ -395,6 +395,7 @@ export const ModelName = {
   locations: 'locations',
   staging_sessions: 'staging_sessions',
   staging_session_items: 'staging_session_items',
+  staging_session_events: 'staging_session_events',
   inventory_items: 'inventory_items',
   inventory_balances: 'inventory_balances',
   inventory_transactions: 'inventory_transactions'
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organizations" | "users" | "organization_memberships" | "assets" | "jobs" | "job_assignments" | "maintenance_events" | "events" | "locations" | "staging_sessions" | "staging_session_items" | "inventory_items" | "inventory_balances" | "inventory_transactions"
+    modelProps: "organizations" | "users" | "organization_memberships" | "assets" | "jobs" | "job_assignments" | "maintenance_events" | "events" | "locations" | "staging_sessions" | "staging_session_items" | "staging_session_events" | "inventory_items" | "inventory_balances" | "inventory_transactions"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1231,6 +1232,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    staging_session_events: {
+      payload: Prisma.$staging_session_eventsPayload<ExtArgs>
+      fields: Prisma.staging_session_eventsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.staging_session_eventsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.staging_session_eventsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload>
+        }
+        findFirst: {
+          args: Prisma.staging_session_eventsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.staging_session_eventsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload>
+        }
+        findMany: {
+          args: Prisma.staging_session_eventsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload>[]
+        }
+        create: {
+          args: Prisma.staging_session_eventsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload>
+        }
+        createMany: {
+          args: Prisma.staging_session_eventsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.staging_session_eventsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload>[]
+        }
+        delete: {
+          args: Prisma.staging_session_eventsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload>
+        }
+        update: {
+          args: Prisma.staging_session_eventsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload>
+        }
+        deleteMany: {
+          args: Prisma.staging_session_eventsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.staging_session_eventsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.staging_session_eventsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload>[]
+        }
+        upsert: {
+          args: Prisma.staging_session_eventsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$staging_session_eventsPayload>
+        }
+        aggregate: {
+          args: Prisma.Staging_session_eventsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStaging_session_events>
+        }
+        groupBy: {
+          args: Prisma.staging_session_eventsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Staging_session_eventsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.staging_session_eventsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Staging_session_eventsCountAggregateOutputType> | number
+        }
+      }
+    }
     inventory_items: {
       payload: Prisma.$inventory_itemsPayload<ExtArgs>
       fields: Prisma.inventory_itemsFieldRefs
@@ -1607,6 +1682,9 @@ export const Staging_sessionsScalarFieldEnum = {
   notes: 'notes',
   started_at: 'started_at',
   completed_at: 'completed_at',
+  released_at: 'released_at',
+  released_by_user_id: 'released_by_user_id',
+  release_note: 'release_note',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -1623,11 +1701,31 @@ export const Staging_session_itemsScalarFieldEnum = {
   actual_quantity: 'actual_quantity',
   verification_status: 'verification_status',
   note: 'note',
+  shortage_reason: 'shortage_reason',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
 export type Staging_session_itemsScalarFieldEnum = (typeof Staging_session_itemsScalarFieldEnum)[keyof typeof Staging_session_itemsScalarFieldEnum]
+
+
+export const Staging_session_eventsScalarFieldEnum = {
+  id: 'id',
+  organization_id: 'organization_id',
+  staging_session_id: 'staging_session_id',
+  staging_item_id: 'staging_item_id',
+  event_type: 'event_type',
+  result: 'result',
+  scanned_value: 'scanned_value',
+  message: 'message',
+  previous_status: 'previous_status',
+  next_status: 'next_status',
+  note_snapshot: 'note_snapshot',
+  metadata: 'metadata',
+  created_at: 'created_at'
+} as const
+
+export type Staging_session_eventsScalarFieldEnum = (typeof Staging_session_eventsScalarFieldEnum)[keyof typeof Staging_session_eventsScalarFieldEnum]
 
 
 export const Inventory_itemsScalarFieldEnum = {
@@ -2050,6 +2148,7 @@ export type GlobalOmitConfig = {
   locations?: Prisma.locationsOmit
   staging_sessions?: Prisma.staging_sessionsOmit
   staging_session_items?: Prisma.staging_session_itemsOmit
+  staging_session_events?: Prisma.staging_session_eventsOmit
   inventory_items?: Prisma.inventory_itemsOmit
   inventory_balances?: Prisma.inventory_balancesOmit
   inventory_transactions?: Prisma.inventory_transactionsOmit

@@ -186,9 +186,10 @@ model locations {
 enum staging_status {
   draft
   in_progress
-  verified
-  failed
-  completed
+  ready
+  short
+  dispatched
+  closed
 }
 
 enum staging_item_type {
@@ -205,29 +206,34 @@ enum verification_status {
 }
 
 model staging_sessions {
-  id                 String         @id @default(uuid())
-  organization_id    String
-  target_asset_id    String
-  target_job_id      String?
-  started_by_user_id String?
-  status             staging_status @default(draft)
-  notes              String?
-  started_at         DateTime       @default(now())
-  completed_at       DateTime?
-  created_at         DateTime       @default(now())
-  updated_at         DateTime       @updatedAt
+  id                  String         @id @default(uuid())
+  organization_id     String
+  target_asset_id     String
+  target_job_id       String?
+  started_by_user_id  String?
+  status              staging_status @default(draft)
+  notes               String?
+  started_at          DateTime       @default(now())
+  completed_at        DateTime?
+  released_at         DateTime?
+  released_by_user_id String?
+  release_note        String?
+  created_at          DateTime       @default(now())
+  updated_at          DateTime       @updatedAt
 
-  organization organizations           @relation(fields: [organization_id], references: [id])
-  target_asset assets                  @relation(fields: [target_asset_id], references: [id])
-  target_job   jobs?                   @relation(fields: [target_job_id], references: [id])
-  started_by   users?                  @relation(fields: [started_by_user_id], references: [id])
+  organization organizations            @relation(fields: [organization_id], references: [id])
+  target_asset assets                   @relation(fields: [target_asset_id], references: [id])
+  target_job   jobs?                    @relation(fields: [target_job_id], references: [id])
+  started_by   users?                   @relation(fields: [started_by_user_id], references: [id])
   items        staging_session_items[]
+  events       staging_session_events[] @relation("session_events")
 
   @@index([organization_id])
   @@index([target_asset_id])
   @@index([target_job_id])
   @@index([started_by_user_id])
   @@index([status])
+  @@index([released_by_user_id])
 }
 
 model staging_session_items {
@@ -239,15 +245,39 @@ model staging_session_items {
   actual_quantity     Int?
   verification_status verification_status @default(pending)
   note                String?
+  shortage_reason     String?
   created_at          DateTime            @default(now())
   updated_at          DateTime            @updatedAt
 
-  staging_session staging_sessions @relation(fields: [staging_session_id], references: [id])
+  staging_session staging_sessions         @relation(fields: [staging_session_id], references: [id])
+  events          staging_session_events[] @relation("item_events")
 
   @@index([staging_session_id])
   @@index([item_type])
   @@index([referenced_item_id])
   @@index([verification_status])
+}
+
+model staging_session_events {
+  id                 String   @id @default(cuid())
+  organization_id    String?
+  staging_session_id String
+  staging_item_id    String?
+  event_type         String
+  result             String?
+  scanned_value      String?
+  message            String?
+  previous_status    String?
+  next_status        String?
+  note_snapshot      String?
+  metadata           Json?
+  created_at         DateTime @default(now())
+
+  staging_session staging_sessions       @relation("session_events", fields: [staging_session_id], references: [id], onDelete: Cascade)
+  staging_item    staging_session_items? @relation("item_events", fields: [staging_item_id], references: [id], onDelete: SetNull)
+
+  @@index([staging_session_id, created_at])
+  @@index([staging_item_id, created_at])
 }
 
 enum inventory_type {

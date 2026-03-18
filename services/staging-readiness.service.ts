@@ -1,4 +1,39 @@
 import { prisma } from "../lib/prisma";
+import { createStagingSessionEvent } from "./staging-session-events.service";
+
+function deriveStagingStatus(
+  items: Array<{
+    verification_status?: string | null;
+  }>,
+  currentStatus?: string | null
+) {
+  const hasBlockingIssues = items.some((item) => {
+    const status = item.verification_status?.toLowerCase();
+    return status === "missing" || status === "issue";
+  });
+
+  if (hasBlockingIssues) {
+    return "short";
+  }
+
+  if (items.length === 0) {
+    return "draft";
+  }
+
+  const allVerified = items.every(
+    (item) => item.verification_status?.toLowerCase() === "verified"
+  );
+
+  if (allVerified) {
+    if ((currentStatus ?? "").toLowerCase() === "dispatched") {
+      return "dispatched";
+    }
+
+    return "ready";
+  }
+
+  return "in_progress";
+}
 
 export async function evaluateStagingSession(sessionId: string) {
   const session = await prisma.staging_sessions.findUnique({
@@ -12,50 +47,50 @@ export async function evaluateStagingSession(sessionId: string) {
     throw new Error("Staging session not found");
   }
 
-  const hasItems = session.items.length > 0;
-  const hasMissing = session.items.some(
-    (item) =>
-      item.verification_status === "missing" ||
-      item.verification_status === "issue"
-  );
-  const allVerified =
-    hasItems &&
-    session.items.every((item) => item.verification_status === "verified");
+  const nextStatus = deriveStagingStatus(session.items, session.status);
+  const previousStatus = session.status;
 
-  let nextStatus: "in_progress" | "failed" | "completed" = "in_progress";
-
-  if (hasMissing) {
-    nextStatus = "failed";
-  } else if (allVerified) {
-    nextStatus = "completed";
-  } else {
-    nextStatus = "in_progress";
-  }
+  const completedAt =
+    nextStatus === "ready" || nextStatus === "dispatched"
+      ? session.completed_at ?? new Date()
+      : null;
 
   const updatedSession = await prisma.staging_sessions.update({
     where: { id: sessionId },
     data: {
-      status: nextStatus,
-      completed_at: nextStatus === "completed" ? new Date() : null,
+      status: nextStatus as never,
+      completed_at: completedAt,
     },
   });
 
-  if (session.target_job_id) {
-    let nextJobStatus: "staging" | "ready" = "staging";
-
-    if (nextStatus === "completed") {
-      nextJobStatus = "ready";
-    } else {
-      nextJobStatus = "staging";
-    }
-
-    await prisma.jobs.update({
-      where: { id: session.target_job_id },
-      data: {
-        status: nextJobStatus,
+  if (previousStatus !== nextStatus) {
+    await createStagingSessionEvent({
+      organization_id: session.organization_id,
+      staging_session_id: session.id,
+      event_type: "staging.status_change",
+      result: nextStatus,
+      message: `Session status derived to ${nextStatus}.`,
+      previous_status: previousStatus,
+      next_status: nextStatus,
+      metadata: {
+        blocker_count: session.items.filter((item) => {
+          const status = item.verification_status?.toLowerCase();
+          return status === "missing" || status === "issue";
+        }).length,
       },
     });
   }
 
+  if (session.target_job_id) {
+    const jobReady = nextStatus === "ready" || nextStatus === "dispatched";
+
+    await prisma.jobs.update({
+      where: { id: session.target_job_id },
+      data: {
+        status: (jobReady ? "ready" : "in_progress") as never,
+      },
+    });
+  }
+  
   return updatedSession;
 }

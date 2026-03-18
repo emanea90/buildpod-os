@@ -45,6 +45,7 @@ export type Staging_session_itemsMinAggregateOutputType = {
   actual_quantity: number | null
   verification_status: $Enums.verification_status | null
   note: string | null
+  shortage_reason: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -58,6 +59,7 @@ export type Staging_session_itemsMaxAggregateOutputType = {
   actual_quantity: number | null
   verification_status: $Enums.verification_status | null
   note: string | null
+  shortage_reason: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -71,6 +73,7 @@ export type Staging_session_itemsCountAggregateOutputType = {
   actual_quantity: number
   verification_status: number
   note: number
+  shortage_reason: number
   created_at: number
   updated_at: number
   _all: number
@@ -96,6 +99,7 @@ export type Staging_session_itemsMinAggregateInputType = {
   actual_quantity?: true
   verification_status?: true
   note?: true
+  shortage_reason?: true
   created_at?: true
   updated_at?: true
 }
@@ -109,6 +113,7 @@ export type Staging_session_itemsMaxAggregateInputType = {
   actual_quantity?: true
   verification_status?: true
   note?: true
+  shortage_reason?: true
   created_at?: true
   updated_at?: true
 }
@@ -122,6 +127,7 @@ export type Staging_session_itemsCountAggregateInputType = {
   actual_quantity?: true
   verification_status?: true
   note?: true
+  shortage_reason?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -222,6 +228,7 @@ export type Staging_session_itemsGroupByOutputType = {
   actual_quantity: number | null
   verification_status: $Enums.verification_status
   note: string | null
+  shortage_reason: string | null
   created_at: Date
   updated_at: Date
   _count: Staging_session_itemsCountAggregateOutputType | null
@@ -258,9 +265,11 @@ export type staging_session_itemsWhereInput = {
   actual_quantity?: Prisma.IntNullableFilter<"staging_session_items"> | number | null
   verification_status?: Prisma.Enumverification_statusFilter<"staging_session_items"> | $Enums.verification_status
   note?: Prisma.StringNullableFilter<"staging_session_items"> | string | null
+  shortage_reason?: Prisma.StringNullableFilter<"staging_session_items"> | string | null
   created_at?: Prisma.DateTimeFilter<"staging_session_items"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"staging_session_items"> | Date | string
   staging_session?: Prisma.XOR<Prisma.Staging_sessionsScalarRelationFilter, Prisma.staging_sessionsWhereInput>
+  events?: Prisma.Staging_session_eventsListRelationFilter
 }
 
 export type staging_session_itemsOrderByWithRelationInput = {
@@ -272,9 +281,11 @@ export type staging_session_itemsOrderByWithRelationInput = {
   actual_quantity?: Prisma.SortOrderInput | Prisma.SortOrder
   verification_status?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
+  shortage_reason?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   staging_session?: Prisma.staging_sessionsOrderByWithRelationInput
+  events?: Prisma.staging_session_eventsOrderByRelationAggregateInput
 }
 
 export type staging_session_itemsWhereUniqueInput = Prisma.AtLeast<{
@@ -289,9 +300,11 @@ export type staging_session_itemsWhereUniqueInput = Prisma.AtLeast<{
   actual_quantity?: Prisma.IntNullableFilter<"staging_session_items"> | number | null
   verification_status?: Prisma.Enumverification_statusFilter<"staging_session_items"> | $Enums.verification_status
   note?: Prisma.StringNullableFilter<"staging_session_items"> | string | null
+  shortage_reason?: Prisma.StringNullableFilter<"staging_session_items"> | string | null
   created_at?: Prisma.DateTimeFilter<"staging_session_items"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"staging_session_items"> | Date | string
   staging_session?: Prisma.XOR<Prisma.Staging_sessionsScalarRelationFilter, Prisma.staging_sessionsWhereInput>
+  events?: Prisma.Staging_session_eventsListRelationFilter
 }, "id">
 
 export type staging_session_itemsOrderByWithAggregationInput = {
@@ -303,6 +316,7 @@ export type staging_session_itemsOrderByWithAggregationInput = {
   actual_quantity?: Prisma.SortOrderInput | Prisma.SortOrder
   verification_status?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
+  shortage_reason?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.staging_session_itemsCountOrderByAggregateInput
@@ -324,6 +338,7 @@ export type staging_session_itemsScalarWhereWithAggregatesInput = {
   actual_quantity?: Prisma.IntNullableWithAggregatesFilter<"staging_session_items"> | number | null
   verification_status?: Prisma.Enumverification_statusWithAggregatesFilter<"staging_session_items"> | $Enums.verification_status
   note?: Prisma.StringNullableWithAggregatesFilter<"staging_session_items"> | string | null
+  shortage_reason?: Prisma.StringNullableWithAggregatesFilter<"staging_session_items"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"staging_session_items"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"staging_session_items"> | Date | string
 }
@@ -336,9 +351,11 @@ export type staging_session_itemsCreateInput = {
   actual_quantity?: number | null
   verification_status?: $Enums.verification_status
   note?: string | null
+  shortage_reason?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   staging_session: Prisma.staging_sessionsCreateNestedOneWithoutItemsInput
+  events?: Prisma.staging_session_eventsCreateNestedManyWithoutStaging_itemInput
 }
 
 export type staging_session_itemsUncheckedCreateInput = {
@@ -350,8 +367,10 @@ export type staging_session_itemsUncheckedCreateInput = {
   actual_quantity?: number | null
   verification_status?: $Enums.verification_status
   note?: string | null
+  shortage_reason?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  events?: Prisma.staging_session_eventsUncheckedCreateNestedManyWithoutStaging_itemInput
 }
 
 export type staging_session_itemsUpdateInput = {
@@ -362,9 +381,11 @@ export type staging_session_itemsUpdateInput = {
   actual_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   verification_status?: Prisma.Enumverification_statusFieldUpdateOperationsInput | $Enums.verification_status
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortage_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   staging_session?: Prisma.staging_sessionsUpdateOneRequiredWithoutItemsNestedInput
+  events?: Prisma.staging_session_eventsUpdateManyWithoutStaging_itemNestedInput
 }
 
 export type staging_session_itemsUncheckedUpdateInput = {
@@ -376,8 +397,10 @@ export type staging_session_itemsUncheckedUpdateInput = {
   actual_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   verification_status?: Prisma.Enumverification_statusFieldUpdateOperationsInput | $Enums.verification_status
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortage_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.staging_session_eventsUncheckedUpdateManyWithoutStaging_itemNestedInput
 }
 
 export type staging_session_itemsCreateManyInput = {
@@ -389,6 +412,7 @@ export type staging_session_itemsCreateManyInput = {
   actual_quantity?: number | null
   verification_status?: $Enums.verification_status
   note?: string | null
+  shortage_reason?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -401,6 +425,7 @@ export type staging_session_itemsUpdateManyMutationInput = {
   actual_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   verification_status?: Prisma.Enumverification_statusFieldUpdateOperationsInput | $Enums.verification_status
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortage_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -414,6 +439,7 @@ export type staging_session_itemsUncheckedUpdateManyInput = {
   actual_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   verification_status?: Prisma.Enumverification_statusFieldUpdateOperationsInput | $Enums.verification_status
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortage_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -437,6 +463,7 @@ export type staging_session_itemsCountOrderByAggregateInput = {
   actual_quantity?: Prisma.SortOrder
   verification_status?: Prisma.SortOrder
   note?: Prisma.SortOrder
+  shortage_reason?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -455,6 +482,7 @@ export type staging_session_itemsMaxOrderByAggregateInput = {
   actual_quantity?: Prisma.SortOrder
   verification_status?: Prisma.SortOrder
   note?: Prisma.SortOrder
+  shortage_reason?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -468,6 +496,7 @@ export type staging_session_itemsMinOrderByAggregateInput = {
   actual_quantity?: Prisma.SortOrder
   verification_status?: Prisma.SortOrder
   note?: Prisma.SortOrder
+  shortage_reason?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -475,6 +504,11 @@ export type staging_session_itemsMinOrderByAggregateInput = {
 export type staging_session_itemsSumOrderByAggregateInput = {
   expected_quantity?: Prisma.SortOrder
   actual_quantity?: Prisma.SortOrder
+}
+
+export type Staging_session_itemsNullableScalarRelationFilter = {
+  is?: Prisma.staging_session_itemsWhereInput | null
+  isNot?: Prisma.staging_session_itemsWhereInput | null
 }
 
 export type staging_session_itemsCreateNestedManyWithoutStaging_sessionInput = {
@@ -535,6 +569,22 @@ export type Enumverification_statusFieldUpdateOperationsInput = {
   set?: $Enums.verification_status
 }
 
+export type staging_session_itemsCreateNestedOneWithoutEventsInput = {
+  create?: Prisma.XOR<Prisma.staging_session_itemsCreateWithoutEventsInput, Prisma.staging_session_itemsUncheckedCreateWithoutEventsInput>
+  connectOrCreate?: Prisma.staging_session_itemsCreateOrConnectWithoutEventsInput
+  connect?: Prisma.staging_session_itemsWhereUniqueInput
+}
+
+export type staging_session_itemsUpdateOneWithoutEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.staging_session_itemsCreateWithoutEventsInput, Prisma.staging_session_itemsUncheckedCreateWithoutEventsInput>
+  connectOrCreate?: Prisma.staging_session_itemsCreateOrConnectWithoutEventsInput
+  upsert?: Prisma.staging_session_itemsUpsertWithoutEventsInput
+  disconnect?: Prisma.staging_session_itemsWhereInput | boolean
+  delete?: Prisma.staging_session_itemsWhereInput | boolean
+  connect?: Prisma.staging_session_itemsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.staging_session_itemsUpdateToOneWithWhereWithoutEventsInput, Prisma.staging_session_itemsUpdateWithoutEventsInput>, Prisma.staging_session_itemsUncheckedUpdateWithoutEventsInput>
+}
+
 export type staging_session_itemsCreateWithoutStaging_sessionInput = {
   id?: string
   item_type: $Enums.staging_item_type
@@ -543,8 +593,10 @@ export type staging_session_itemsCreateWithoutStaging_sessionInput = {
   actual_quantity?: number | null
   verification_status?: $Enums.verification_status
   note?: string | null
+  shortage_reason?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  events?: Prisma.staging_session_eventsCreateNestedManyWithoutStaging_itemInput
 }
 
 export type staging_session_itemsUncheckedCreateWithoutStaging_sessionInput = {
@@ -555,8 +607,10 @@ export type staging_session_itemsUncheckedCreateWithoutStaging_sessionInput = {
   actual_quantity?: number | null
   verification_status?: $Enums.verification_status
   note?: string | null
+  shortage_reason?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  events?: Prisma.staging_session_eventsUncheckedCreateNestedManyWithoutStaging_itemInput
 }
 
 export type staging_session_itemsCreateOrConnectWithoutStaging_sessionInput = {
@@ -597,8 +651,81 @@ export type staging_session_itemsScalarWhereInput = {
   actual_quantity?: Prisma.IntNullableFilter<"staging_session_items"> | number | null
   verification_status?: Prisma.Enumverification_statusFilter<"staging_session_items"> | $Enums.verification_status
   note?: Prisma.StringNullableFilter<"staging_session_items"> | string | null
+  shortage_reason?: Prisma.StringNullableFilter<"staging_session_items"> | string | null
   created_at?: Prisma.DateTimeFilter<"staging_session_items"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"staging_session_items"> | Date | string
+}
+
+export type staging_session_itemsCreateWithoutEventsInput = {
+  id?: string
+  item_type: $Enums.staging_item_type
+  referenced_item_id: string
+  expected_quantity?: number | null
+  actual_quantity?: number | null
+  verification_status?: $Enums.verification_status
+  note?: string | null
+  shortage_reason?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  staging_session: Prisma.staging_sessionsCreateNestedOneWithoutItemsInput
+}
+
+export type staging_session_itemsUncheckedCreateWithoutEventsInput = {
+  id?: string
+  staging_session_id: string
+  item_type: $Enums.staging_item_type
+  referenced_item_id: string
+  expected_quantity?: number | null
+  actual_quantity?: number | null
+  verification_status?: $Enums.verification_status
+  note?: string | null
+  shortage_reason?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type staging_session_itemsCreateOrConnectWithoutEventsInput = {
+  where: Prisma.staging_session_itemsWhereUniqueInput
+  create: Prisma.XOR<Prisma.staging_session_itemsCreateWithoutEventsInput, Prisma.staging_session_itemsUncheckedCreateWithoutEventsInput>
+}
+
+export type staging_session_itemsUpsertWithoutEventsInput = {
+  update: Prisma.XOR<Prisma.staging_session_itemsUpdateWithoutEventsInput, Prisma.staging_session_itemsUncheckedUpdateWithoutEventsInput>
+  create: Prisma.XOR<Prisma.staging_session_itemsCreateWithoutEventsInput, Prisma.staging_session_itemsUncheckedCreateWithoutEventsInput>
+  where?: Prisma.staging_session_itemsWhereInput
+}
+
+export type staging_session_itemsUpdateToOneWithWhereWithoutEventsInput = {
+  where?: Prisma.staging_session_itemsWhereInput
+  data: Prisma.XOR<Prisma.staging_session_itemsUpdateWithoutEventsInput, Prisma.staging_session_itemsUncheckedUpdateWithoutEventsInput>
+}
+
+export type staging_session_itemsUpdateWithoutEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  item_type?: Prisma.Enumstaging_item_typeFieldUpdateOperationsInput | $Enums.staging_item_type
+  referenced_item_id?: Prisma.StringFieldUpdateOperationsInput | string
+  expected_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actual_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  verification_status?: Prisma.Enumverification_statusFieldUpdateOperationsInput | $Enums.verification_status
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortage_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  staging_session?: Prisma.staging_sessionsUpdateOneRequiredWithoutItemsNestedInput
+}
+
+export type staging_session_itemsUncheckedUpdateWithoutEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  staging_session_id?: Prisma.StringFieldUpdateOperationsInput | string
+  item_type?: Prisma.Enumstaging_item_typeFieldUpdateOperationsInput | $Enums.staging_item_type
+  referenced_item_id?: Prisma.StringFieldUpdateOperationsInput | string
+  expected_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actual_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  verification_status?: Prisma.Enumverification_statusFieldUpdateOperationsInput | $Enums.verification_status
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortage_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type staging_session_itemsCreateManyStaging_sessionInput = {
@@ -609,6 +736,7 @@ export type staging_session_itemsCreateManyStaging_sessionInput = {
   actual_quantity?: number | null
   verification_status?: $Enums.verification_status
   note?: string | null
+  shortage_reason?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -621,8 +749,10 @@ export type staging_session_itemsUpdateWithoutStaging_sessionInput = {
   actual_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   verification_status?: Prisma.Enumverification_statusFieldUpdateOperationsInput | $Enums.verification_status
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortage_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.staging_session_eventsUpdateManyWithoutStaging_itemNestedInput
 }
 
 export type staging_session_itemsUncheckedUpdateWithoutStaging_sessionInput = {
@@ -633,8 +763,10 @@ export type staging_session_itemsUncheckedUpdateWithoutStaging_sessionInput = {
   actual_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   verification_status?: Prisma.Enumverification_statusFieldUpdateOperationsInput | $Enums.verification_status
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortage_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.staging_session_eventsUncheckedUpdateManyWithoutStaging_itemNestedInput
 }
 
 export type staging_session_itemsUncheckedUpdateManyWithoutStaging_sessionInput = {
@@ -645,10 +777,40 @@ export type staging_session_itemsUncheckedUpdateManyWithoutStaging_sessionInput 
   actual_quantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   verification_status?: Prisma.Enumverification_statusFieldUpdateOperationsInput | $Enums.verification_status
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shortage_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type Staging_session_itemsCountOutputType
+ */
+
+export type Staging_session_itemsCountOutputType = {
+  events: number
+}
+
+export type Staging_session_itemsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  events?: boolean | Staging_session_itemsCountOutputTypeCountEventsArgs
+}
+
+/**
+ * Staging_session_itemsCountOutputType without action
+ */
+export type Staging_session_itemsCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Staging_session_itemsCountOutputType
+   */
+  select?: Prisma.Staging_session_itemsCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * Staging_session_itemsCountOutputType without action
+ */
+export type Staging_session_itemsCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.staging_session_eventsWhereInput
+}
 
 
 export type staging_session_itemsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -660,9 +822,12 @@ export type staging_session_itemsSelect<ExtArgs extends runtime.Types.Extensions
   actual_quantity?: boolean
   verification_status?: boolean
   note?: boolean
+  shortage_reason?: boolean
   created_at?: boolean
   updated_at?: boolean
   staging_session?: boolean | Prisma.staging_sessionsDefaultArgs<ExtArgs>
+  events?: boolean | Prisma.staging_session_items$eventsArgs<ExtArgs>
+  _count?: boolean | Prisma.Staging_session_itemsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["staging_session_items"]>
 
 export type staging_session_itemsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -674,6 +839,7 @@ export type staging_session_itemsSelectCreateManyAndReturn<ExtArgs extends runti
   actual_quantity?: boolean
   verification_status?: boolean
   note?: boolean
+  shortage_reason?: boolean
   created_at?: boolean
   updated_at?: boolean
   staging_session?: boolean | Prisma.staging_sessionsDefaultArgs<ExtArgs>
@@ -688,6 +854,7 @@ export type staging_session_itemsSelectUpdateManyAndReturn<ExtArgs extends runti
   actual_quantity?: boolean
   verification_status?: boolean
   note?: boolean
+  shortage_reason?: boolean
   created_at?: boolean
   updated_at?: boolean
   staging_session?: boolean | Prisma.staging_sessionsDefaultArgs<ExtArgs>
@@ -702,13 +869,16 @@ export type staging_session_itemsSelectScalar = {
   actual_quantity?: boolean
   verification_status?: boolean
   note?: boolean
+  shortage_reason?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type staging_session_itemsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "staging_session_id" | "item_type" | "referenced_item_id" | "expected_quantity" | "actual_quantity" | "verification_status" | "note" | "created_at" | "updated_at", ExtArgs["result"]["staging_session_items"]>
+export type staging_session_itemsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "staging_session_id" | "item_type" | "referenced_item_id" | "expected_quantity" | "actual_quantity" | "verification_status" | "note" | "shortage_reason" | "created_at" | "updated_at", ExtArgs["result"]["staging_session_items"]>
 export type staging_session_itemsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   staging_session?: boolean | Prisma.staging_sessionsDefaultArgs<ExtArgs>
+  events?: boolean | Prisma.staging_session_items$eventsArgs<ExtArgs>
+  _count?: boolean | Prisma.Staging_session_itemsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type staging_session_itemsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   staging_session?: boolean | Prisma.staging_sessionsDefaultArgs<ExtArgs>
@@ -721,6 +891,7 @@ export type $staging_session_itemsPayload<ExtArgs extends runtime.Types.Extensio
   name: "staging_session_items"
   objects: {
     staging_session: Prisma.$staging_sessionsPayload<ExtArgs>
+    events: Prisma.$staging_session_eventsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -731,6 +902,7 @@ export type $staging_session_itemsPayload<ExtArgs extends runtime.Types.Extensio
     actual_quantity: number | null
     verification_status: $Enums.verification_status
     note: string | null
+    shortage_reason: string | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["staging_session_items"]>
@@ -1128,6 +1300,7 @@ readonly fields: staging_session_itemsFieldRefs;
 export interface Prisma__staging_session_itemsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   staging_session<T extends Prisma.staging_sessionsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.staging_sessionsDefaultArgs<ExtArgs>>): Prisma.Prisma__staging_sessionsClient<runtime.Types.Result.GetResult<Prisma.$staging_sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  events<T extends Prisma.staging_session_items$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.staging_session_items$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$staging_session_eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1165,6 +1338,7 @@ export interface staging_session_itemsFieldRefs {
   readonly actual_quantity: Prisma.FieldRef<"staging_session_items", 'Int'>
   readonly verification_status: Prisma.FieldRef<"staging_session_items", 'verification_status'>
   readonly note: Prisma.FieldRef<"staging_session_items", 'String'>
+  readonly shortage_reason: Prisma.FieldRef<"staging_session_items", 'String'>
   readonly created_at: Prisma.FieldRef<"staging_session_items", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"staging_session_items", 'DateTime'>
 }
@@ -1565,6 +1739,30 @@ export type staging_session_itemsDeleteManyArgs<ExtArgs extends runtime.Types.Ex
    * Limit how many staging_session_items to delete.
    */
   limit?: number
+}
+
+/**
+ * staging_session_items.events
+ */
+export type staging_session_items$eventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the staging_session_events
+   */
+  select?: Prisma.staging_session_eventsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the staging_session_events
+   */
+  omit?: Prisma.staging_session_eventsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.staging_session_eventsInclude<ExtArgs> | null
+  where?: Prisma.staging_session_eventsWhereInput
+  orderBy?: Prisma.staging_session_eventsOrderByWithRelationInput | Prisma.staging_session_eventsOrderByWithRelationInput[]
+  cursor?: Prisma.staging_session_eventsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Staging_session_eventsScalarFieldEnum | Prisma.Staging_session_eventsScalarFieldEnum[]
 }
 
 /**

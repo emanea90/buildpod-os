@@ -73,6 +73,11 @@ export type staging_sessions = Prisma.staging_sessionsModel
  */
 export type staging_session_items = Prisma.staging_session_itemsModel
 /**
+ * Model staging_session_events
+ * 
+ */
+export type staging_session_events = Prisma.staging_session_eventsModel
+/**
  * Model inventory_items
  * 
  */

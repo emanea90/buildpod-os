@@ -47,28 +47,25 @@ function formatDate(value?: string | null) {
 }
 
 function getStatusClasses(status?: string | null) {
-  const base =
-    "inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide";
-
-  switch (status) {
-    case "ready":
-    case "READY":
-      return `${base} border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300`;
-    case "short":
-    case "SHORT":
-    case "not_ready":
-    case "NOT_READY":
-      return `${base} border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-300`;
-    case "in_progress":
-    case "IN_PROGRESS":
-      return `${base} border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-300`;
-    case "completed":
-    case "COMPLETED":
-      return `${base} border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300`;
-    default:
-      return `${base} border-border bg-secondary/40 text-muted-foreground`;
+    const base =
+      "inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide";
+  
+    switch (status?.toLowerCase()) {
+      case "ready":
+        return `${base} border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300`;
+      case "short":
+      case "not_ready":
+        return `${base} border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-300`;
+      case "in_progress":
+        return `${base} border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-300`;
+      case "completed":
+        return `${base} border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300`;
+      case "dispatched":
+        return `${base} border-sky-500/20 bg-sky-500/10 text-sky-600 dark:text-sky-300`;
+      default:
+        return `${base} border-border bg-secondary/40 text-muted-foreground`;
+    }
   }
-}
 
 function formatStatusLabel(status?: string | null) {
   if (!status) return "—";
@@ -101,6 +98,7 @@ export default function StagingPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showAttentionOnly, setShowAttentionOnly] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -192,9 +190,10 @@ export default function StagingPage() {
       return bDate - aDate;
     });
   }, [sessions]);
+
   const visibleSessions = useMemo(() => {
     if (!showAttentionOnly) return sortedSessions;
-  
+
     return sortedSessions.filter((session) => {
       const status = session.status?.toLowerCase();
       return (
@@ -205,13 +204,34 @@ export default function StagingPage() {
       );
     });
   }, [showAttentionOnly, sortedSessions]);
+
+  const searchedSessions = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+
+    if (!query) return visibleSessions;
+
+    return visibleSessions.filter((session) => {
+      const asset = session.target_asset?.name?.toLowerCase() ?? "";
+      const job = session.target_job?.title?.toLowerCase() ?? "";
+      const sessionId = session.id.toLowerCase();
+
+      return (
+        asset.includes(query) ||
+        job.includes(query) ||
+        sessionId.includes(query)
+      );
+    });
+  }, [searchTerm, visibleSessions]);
+
+  const hasActiveSearch = searchTerm.trim().length > 0;
+
   return (
     <AppShell>
       <div className="space-y-6">
         <div className="rounded-3xl border border-border bg-card p-8 shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
           <h2 className="text-3xl font-bold text-foreground">Staging</h2>
           <p className="mt-3 text-sm text-muted-foreground">
-            Pre-flight control board for trailer readiness, missing items, and dispatch checks.
+          Pre-deployment control board for asset readiness, missing items, and dispatch checks.
           </p>
         </div>
 
@@ -266,18 +286,43 @@ export default function StagingPage() {
 
         <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
           <div className="flex items-center justify-between border-b border-border px-6 py-4">
-          <button
-  type="button"
-  onClick={() => setShowAttentionOnly((current) => !current)}
-  className="rounded-xl border border-border px-3 py-1.5 text-xs font-medium text-foreground transition hover:bg-background/60"
->
-  {showAttentionOnly ? "Show all" : "Needs attention only"}
-</button>
             <div>
               <h3 className="text-base font-semibold text-foreground">Staging sessions</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 Prioritize blocked or incomplete sessions before dispatch.
               </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="text-xs text-muted-foreground">
+                {searchedSessions.length} result{searchedSessions.length === 1 ? "" : "s"}
+              </div>
+
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search asset, job, or session ID"
+                className="w-72 rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              />
+
+              {hasActiveSearch ? (
+                <button
+                  type="button"
+                  onClick={() => setSearchTerm("")}
+                  className="rounded-xl border border-border px-3 py-2 text-xs font-medium text-foreground transition hover:bg-background/60"
+                >
+                  Clear
+                </button>
+              ) : null}
+
+              <button
+                type="button"
+                onClick={() => setShowAttentionOnly((current) => !current)}
+                className="rounded-xl border border-border px-3 py-2 text-xs font-medium text-foreground transition hover:bg-background/60"
+              >
+                {showAttentionOnly ? "Show all" : "Needs attention only"}
+              </button>
             </div>
           </div>
 
@@ -285,7 +330,7 @@ export default function StagingPage() {
             <div className="px-6 py-10 text-sm text-muted-foreground">Loading staging sessions...</div>
           ) : error ? (
             <div className="px-6 py-10 text-sm text-red-600 dark:text-red-400">{error}</div>
-        ) : visibleSessions.length === 0 ? (
+          ) : searchedSessions.length === 0 ? (
             <div className="px-6 py-10 text-sm text-muted-foreground">No staging sessions found.</div>
           ) : (
             <div className="overflow-x-auto">
@@ -302,7 +347,7 @@ export default function StagingPage() {
                   </tr>
                 </thead>
                 <tbody>
-                {visibleSessions.map((session) => {
+                  {searchedSessions.map((session) => {
                     const issueCount = getIssueCount(session.items);
 
                     return (

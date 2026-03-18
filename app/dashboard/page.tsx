@@ -34,7 +34,7 @@ export default async function DashboardPage() {
             jobs.map((job) => {
               const latestSession = job.staging_sessions[0];
               const readiness =
-                job.status === "ready" && latestSession?.status === "completed"
+                job.status === "ready" && latestSession?.status === "dispatched"
                   ? "Ready"
                   : "Not Ready";
 

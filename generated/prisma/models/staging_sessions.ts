@@ -34,6 +34,9 @@ export type Staging_sessionsMinAggregateOutputType = {
   notes: string | null
   started_at: Date | null
   completed_at: Date | null
+  released_at: Date | null
+  released_by_user_id: string | null
+  release_note: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -48,6 +51,9 @@ export type Staging_sessionsMaxAggregateOutputType = {
   notes: string | null
   started_at: Date | null
   completed_at: Date | null
+  released_at: Date | null
+  released_by_user_id: string | null
+  release_note: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -62,6 +68,9 @@ export type Staging_sessionsCountAggregateOutputType = {
   notes: number
   started_at: number
   completed_at: number
+  released_at: number
+  released_by_user_id: number
+  release_note: number
   created_at: number
   updated_at: number
   _all: number
@@ -78,6 +87,9 @@ export type Staging_sessionsMinAggregateInputType = {
   notes?: true
   started_at?: true
   completed_at?: true
+  released_at?: true
+  released_by_user_id?: true
+  release_note?: true
   created_at?: true
   updated_at?: true
 }
@@ -92,6 +104,9 @@ export type Staging_sessionsMaxAggregateInputType = {
   notes?: true
   started_at?: true
   completed_at?: true
+  released_at?: true
+  released_by_user_id?: true
+  release_note?: true
   created_at?: true
   updated_at?: true
 }
@@ -106,6 +121,9 @@ export type Staging_sessionsCountAggregateInputType = {
   notes?: true
   started_at?: true
   completed_at?: true
+  released_at?: true
+  released_by_user_id?: true
+  release_note?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -193,6 +211,9 @@ export type Staging_sessionsGroupByOutputType = {
   notes: string | null
   started_at: Date
   completed_at: Date | null
+  released_at: Date | null
+  released_by_user_id: string | null
+  release_note: string | null
   created_at: Date
   updated_at: Date
   _count: Staging_sessionsCountAggregateOutputType | null
@@ -228,6 +249,9 @@ export type staging_sessionsWhereInput = {
   notes?: Prisma.StringNullableFilter<"staging_sessions"> | string | null
   started_at?: Prisma.DateTimeFilter<"staging_sessions"> | Date | string
   completed_at?: Prisma.DateTimeNullableFilter<"staging_sessions"> | Date | string | null
+  released_at?: Prisma.DateTimeNullableFilter<"staging_sessions"> | Date | string | null
+  released_by_user_id?: Prisma.StringNullableFilter<"staging_sessions"> | string | null
+  release_note?: Prisma.StringNullableFilter<"staging_sessions"> | string | null
   created_at?: Prisma.DateTimeFilter<"staging_sessions"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"staging_sessions"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationsScalarRelationFilter, Prisma.organizationsWhereInput>
@@ -235,6 +259,7 @@ export type staging_sessionsWhereInput = {
   target_job?: Prisma.XOR<Prisma.JobsNullableScalarRelationFilter, Prisma.jobsWhereInput> | null
   started_by?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
   items?: Prisma.Staging_session_itemsListRelationFilter
+  events?: Prisma.Staging_session_eventsListRelationFilter
 }
 
 export type staging_sessionsOrderByWithRelationInput = {
@@ -247,6 +272,9 @@ export type staging_sessionsOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   started_at?: Prisma.SortOrder
   completed_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  released_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  released_by_user_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  release_note?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   organization?: Prisma.organizationsOrderByWithRelationInput
@@ -254,6 +282,7 @@ export type staging_sessionsOrderByWithRelationInput = {
   target_job?: Prisma.jobsOrderByWithRelationInput
   started_by?: Prisma.usersOrderByWithRelationInput
   items?: Prisma.staging_session_itemsOrderByRelationAggregateInput
+  events?: Prisma.staging_session_eventsOrderByRelationAggregateInput
 }
 
 export type staging_sessionsWhereUniqueInput = Prisma.AtLeast<{
@@ -269,6 +298,9 @@ export type staging_sessionsWhereUniqueInput = Prisma.AtLeast<{
   notes?: Prisma.StringNullableFilter<"staging_sessions"> | string | null
   started_at?: Prisma.DateTimeFilter<"staging_sessions"> | Date | string
   completed_at?: Prisma.DateTimeNullableFilter<"staging_sessions"> | Date | string | null
+  released_at?: Prisma.DateTimeNullableFilter<"staging_sessions"> | Date | string | null
+  released_by_user_id?: Prisma.StringNullableFilter<"staging_sessions"> | string | null
+  release_note?: Prisma.StringNullableFilter<"staging_sessions"> | string | null
   created_at?: Prisma.DateTimeFilter<"staging_sessions"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"staging_sessions"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationsScalarRelationFilter, Prisma.organizationsWhereInput>
@@ -276,6 +308,7 @@ export type staging_sessionsWhereUniqueInput = Prisma.AtLeast<{
   target_job?: Prisma.XOR<Prisma.JobsNullableScalarRelationFilter, Prisma.jobsWhereInput> | null
   started_by?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
   items?: Prisma.Staging_session_itemsListRelationFilter
+  events?: Prisma.Staging_session_eventsListRelationFilter
 }, "id">
 
 export type staging_sessionsOrderByWithAggregationInput = {
@@ -288,6 +321,9 @@ export type staging_sessionsOrderByWithAggregationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   started_at?: Prisma.SortOrder
   completed_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  released_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  released_by_user_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  release_note?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.staging_sessionsCountOrderByAggregateInput
@@ -308,6 +344,9 @@ export type staging_sessionsScalarWhereWithAggregatesInput = {
   notes?: Prisma.StringNullableWithAggregatesFilter<"staging_sessions"> | string | null
   started_at?: Prisma.DateTimeWithAggregatesFilter<"staging_sessions"> | Date | string
   completed_at?: Prisma.DateTimeNullableWithAggregatesFilter<"staging_sessions"> | Date | string | null
+  released_at?: Prisma.DateTimeNullableWithAggregatesFilter<"staging_sessions"> | Date | string | null
+  released_by_user_id?: Prisma.StringNullableWithAggregatesFilter<"staging_sessions"> | string | null
+  release_note?: Prisma.StringNullableWithAggregatesFilter<"staging_sessions"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"staging_sessions"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"staging_sessions"> | Date | string
 }
@@ -318,6 +357,9 @@ export type staging_sessionsCreateInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   organization: Prisma.organizationsCreateNestedOneWithoutStaging_sessionsInput
@@ -325,6 +367,7 @@ export type staging_sessionsCreateInput = {
   target_job?: Prisma.jobsCreateNestedOneWithoutStaging_sessionsInput
   started_by?: Prisma.usersCreateNestedOneWithoutStarted_staging_sessionsInput
   items?: Prisma.staging_session_itemsCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsUncheckedCreateInput = {
@@ -337,9 +380,13 @@ export type staging_sessionsUncheckedCreateInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   items?: Prisma.staging_session_itemsUncheckedCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsUncheckedCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsUpdateInput = {
@@ -348,6 +395,9 @@ export type staging_sessionsUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.organizationsUpdateOneRequiredWithoutStaging_sessionsNestedInput
@@ -355,6 +405,7 @@ export type staging_sessionsUpdateInput = {
   target_job?: Prisma.jobsUpdateOneWithoutStaging_sessionsNestedInput
   started_by?: Prisma.usersUpdateOneWithoutStarted_staging_sessionsNestedInput
   items?: Prisma.staging_session_itemsUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateInput = {
@@ -367,9 +418,13 @@ export type staging_sessionsUncheckedUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.staging_session_itemsUncheckedUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUncheckedUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsCreateManyInput = {
@@ -382,6 +437,9 @@ export type staging_sessionsCreateManyInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -392,6 +450,9 @@ export type staging_sessionsUpdateManyMutationInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -406,6 +467,9 @@ export type staging_sessionsUncheckedUpdateManyInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -430,6 +494,9 @@ export type staging_sessionsCountOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   started_at?: Prisma.SortOrder
   completed_at?: Prisma.SortOrder
+  released_at?: Prisma.SortOrder
+  released_by_user_id?: Prisma.SortOrder
+  release_note?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -444,6 +511,9 @@ export type staging_sessionsMaxOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   started_at?: Prisma.SortOrder
   completed_at?: Prisma.SortOrder
+  released_at?: Prisma.SortOrder
+  released_by_user_id?: Prisma.SortOrder
+  release_note?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -458,6 +528,9 @@ export type staging_sessionsMinOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   started_at?: Prisma.SortOrder
   completed_at?: Prisma.SortOrder
+  released_at?: Prisma.SortOrder
+  released_by_user_id?: Prisma.SortOrder
+  release_note?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -657,18 +730,36 @@ export type staging_sessionsUpdateOneRequiredWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.staging_sessionsUpdateToOneWithWhereWithoutItemsInput, Prisma.staging_sessionsUpdateWithoutItemsInput>, Prisma.staging_sessionsUncheckedUpdateWithoutItemsInput>
 }
 
+export type staging_sessionsCreateNestedOneWithoutEventsInput = {
+  create?: Prisma.XOR<Prisma.staging_sessionsCreateWithoutEventsInput, Prisma.staging_sessionsUncheckedCreateWithoutEventsInput>
+  connectOrCreate?: Prisma.staging_sessionsCreateOrConnectWithoutEventsInput
+  connect?: Prisma.staging_sessionsWhereUniqueInput
+}
+
+export type staging_sessionsUpdateOneRequiredWithoutEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.staging_sessionsCreateWithoutEventsInput, Prisma.staging_sessionsUncheckedCreateWithoutEventsInput>
+  connectOrCreate?: Prisma.staging_sessionsCreateOrConnectWithoutEventsInput
+  upsert?: Prisma.staging_sessionsUpsertWithoutEventsInput
+  connect?: Prisma.staging_sessionsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.staging_sessionsUpdateToOneWithWhereWithoutEventsInput, Prisma.staging_sessionsUpdateWithoutEventsInput>, Prisma.staging_sessionsUncheckedUpdateWithoutEventsInput>
+}
+
 export type staging_sessionsCreateWithoutOrganizationInput = {
   id?: string
   status?: $Enums.staging_status
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   target_asset: Prisma.assetsCreateNestedOneWithoutStaging_sessionsInput
   target_job?: Prisma.jobsCreateNestedOneWithoutStaging_sessionsInput
   started_by?: Prisma.usersCreateNestedOneWithoutStarted_staging_sessionsInput
   items?: Prisma.staging_session_itemsCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsUncheckedCreateWithoutOrganizationInput = {
@@ -680,9 +771,13 @@ export type staging_sessionsUncheckedCreateWithoutOrganizationInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   items?: Prisma.staging_session_itemsUncheckedCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsUncheckedCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsCreateOrConnectWithoutOrganizationInput = {
@@ -724,6 +819,9 @@ export type staging_sessionsScalarWhereInput = {
   notes?: Prisma.StringNullableFilter<"staging_sessions"> | string | null
   started_at?: Prisma.DateTimeFilter<"staging_sessions"> | Date | string
   completed_at?: Prisma.DateTimeNullableFilter<"staging_sessions"> | Date | string | null
+  released_at?: Prisma.DateTimeNullableFilter<"staging_sessions"> | Date | string | null
+  released_by_user_id?: Prisma.StringNullableFilter<"staging_sessions"> | string | null
+  release_note?: Prisma.StringNullableFilter<"staging_sessions"> | string | null
   created_at?: Prisma.DateTimeFilter<"staging_sessions"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"staging_sessions"> | Date | string
 }
@@ -734,12 +832,16 @@ export type staging_sessionsCreateWithoutStarted_byInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   organization: Prisma.organizationsCreateNestedOneWithoutStaging_sessionsInput
   target_asset: Prisma.assetsCreateNestedOneWithoutStaging_sessionsInput
   target_job?: Prisma.jobsCreateNestedOneWithoutStaging_sessionsInput
   items?: Prisma.staging_session_itemsCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsUncheckedCreateWithoutStarted_byInput = {
@@ -751,9 +853,13 @@ export type staging_sessionsUncheckedCreateWithoutStarted_byInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   items?: Prisma.staging_session_itemsUncheckedCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsUncheckedCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsCreateOrConnectWithoutStarted_byInput = {
@@ -788,12 +894,16 @@ export type staging_sessionsCreateWithoutTarget_assetInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   organization: Prisma.organizationsCreateNestedOneWithoutStaging_sessionsInput
   target_job?: Prisma.jobsCreateNestedOneWithoutStaging_sessionsInput
   started_by?: Prisma.usersCreateNestedOneWithoutStarted_staging_sessionsInput
   items?: Prisma.staging_session_itemsCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsUncheckedCreateWithoutTarget_assetInput = {
@@ -805,9 +915,13 @@ export type staging_sessionsUncheckedCreateWithoutTarget_assetInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   items?: Prisma.staging_session_itemsUncheckedCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsUncheckedCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsCreateOrConnectWithoutTarget_assetInput = {
@@ -842,12 +956,16 @@ export type staging_sessionsCreateWithoutTarget_jobInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   organization: Prisma.organizationsCreateNestedOneWithoutStaging_sessionsInput
   target_asset: Prisma.assetsCreateNestedOneWithoutStaging_sessionsInput
   started_by?: Prisma.usersCreateNestedOneWithoutStarted_staging_sessionsInput
   items?: Prisma.staging_session_itemsCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsUncheckedCreateWithoutTarget_jobInput = {
@@ -859,9 +977,13 @@ export type staging_sessionsUncheckedCreateWithoutTarget_jobInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   items?: Prisma.staging_session_itemsUncheckedCreateNestedManyWithoutStaging_sessionInput
+  events?: Prisma.staging_session_eventsUncheckedCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsCreateOrConnectWithoutTarget_jobInput = {
@@ -896,12 +1018,16 @@ export type staging_sessionsCreateWithoutItemsInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   organization: Prisma.organizationsCreateNestedOneWithoutStaging_sessionsInput
   target_asset: Prisma.assetsCreateNestedOneWithoutStaging_sessionsInput
   target_job?: Prisma.jobsCreateNestedOneWithoutStaging_sessionsInput
   started_by?: Prisma.usersCreateNestedOneWithoutStarted_staging_sessionsInput
+  events?: Prisma.staging_session_eventsCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsUncheckedCreateWithoutItemsInput = {
@@ -914,8 +1040,12 @@ export type staging_sessionsUncheckedCreateWithoutItemsInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  events?: Prisma.staging_session_eventsUncheckedCreateNestedManyWithoutStaging_sessionInput
 }
 
 export type staging_sessionsCreateOrConnectWithoutItemsInput = {
@@ -940,12 +1070,16 @@ export type staging_sessionsUpdateWithoutItemsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.organizationsUpdateOneRequiredWithoutStaging_sessionsNestedInput
   target_asset?: Prisma.assetsUpdateOneRequiredWithoutStaging_sessionsNestedInput
   target_job?: Prisma.jobsUpdateOneWithoutStaging_sessionsNestedInput
   started_by?: Prisma.usersUpdateOneWithoutStarted_staging_sessionsNestedInput
+  events?: Prisma.staging_session_eventsUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateWithoutItemsInput = {
@@ -958,8 +1092,100 @@ export type staging_sessionsUncheckedUpdateWithoutItemsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.staging_session_eventsUncheckedUpdateManyWithoutStaging_sessionNestedInput
+}
+
+export type staging_sessionsCreateWithoutEventsInput = {
+  id?: string
+  status?: $Enums.staging_status
+  notes?: string | null
+  started_at?: Date | string
+  completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  organization: Prisma.organizationsCreateNestedOneWithoutStaging_sessionsInput
+  target_asset: Prisma.assetsCreateNestedOneWithoutStaging_sessionsInput
+  target_job?: Prisma.jobsCreateNestedOneWithoutStaging_sessionsInput
+  started_by?: Prisma.usersCreateNestedOneWithoutStarted_staging_sessionsInput
+  items?: Prisma.staging_session_itemsCreateNestedManyWithoutStaging_sessionInput
+}
+
+export type staging_sessionsUncheckedCreateWithoutEventsInput = {
+  id?: string
+  organization_id: string
+  target_asset_id: string
+  target_job_id?: string | null
+  started_by_user_id?: string | null
+  status?: $Enums.staging_status
+  notes?: string | null
+  started_at?: Date | string
+  completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  items?: Prisma.staging_session_itemsUncheckedCreateNestedManyWithoutStaging_sessionInput
+}
+
+export type staging_sessionsCreateOrConnectWithoutEventsInput = {
+  where: Prisma.staging_sessionsWhereUniqueInput
+  create: Prisma.XOR<Prisma.staging_sessionsCreateWithoutEventsInput, Prisma.staging_sessionsUncheckedCreateWithoutEventsInput>
+}
+
+export type staging_sessionsUpsertWithoutEventsInput = {
+  update: Prisma.XOR<Prisma.staging_sessionsUpdateWithoutEventsInput, Prisma.staging_sessionsUncheckedUpdateWithoutEventsInput>
+  create: Prisma.XOR<Prisma.staging_sessionsCreateWithoutEventsInput, Prisma.staging_sessionsUncheckedCreateWithoutEventsInput>
+  where?: Prisma.staging_sessionsWhereInput
+}
+
+export type staging_sessionsUpdateToOneWithWhereWithoutEventsInput = {
+  where?: Prisma.staging_sessionsWhereInput
+  data: Prisma.XOR<Prisma.staging_sessionsUpdateWithoutEventsInput, Prisma.staging_sessionsUncheckedUpdateWithoutEventsInput>
+}
+
+export type staging_sessionsUpdateWithoutEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.Enumstaging_statusFieldUpdateOperationsInput | $Enums.staging_status
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.organizationsUpdateOneRequiredWithoutStaging_sessionsNestedInput
+  target_asset?: Prisma.assetsUpdateOneRequiredWithoutStaging_sessionsNestedInput
+  target_job?: Prisma.jobsUpdateOneWithoutStaging_sessionsNestedInput
+  started_by?: Prisma.usersUpdateOneWithoutStarted_staging_sessionsNestedInput
+  items?: Prisma.staging_session_itemsUpdateManyWithoutStaging_sessionNestedInput
+}
+
+export type staging_sessionsUncheckedUpdateWithoutEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organization_id?: Prisma.StringFieldUpdateOperationsInput | string
+  target_asset_id?: Prisma.StringFieldUpdateOperationsInput | string
+  target_job_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  started_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.Enumstaging_statusFieldUpdateOperationsInput | $Enums.staging_status
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.staging_session_itemsUncheckedUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsCreateManyOrganizationInput = {
@@ -971,6 +1197,9 @@ export type staging_sessionsCreateManyOrganizationInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -981,12 +1210,16 @@ export type staging_sessionsUpdateWithoutOrganizationInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   target_asset?: Prisma.assetsUpdateOneRequiredWithoutStaging_sessionsNestedInput
   target_job?: Prisma.jobsUpdateOneWithoutStaging_sessionsNestedInput
   started_by?: Prisma.usersUpdateOneWithoutStarted_staging_sessionsNestedInput
   items?: Prisma.staging_session_itemsUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateWithoutOrganizationInput = {
@@ -998,9 +1231,13 @@ export type staging_sessionsUncheckedUpdateWithoutOrganizationInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.staging_session_itemsUncheckedUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUncheckedUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateManyWithoutOrganizationInput = {
@@ -1012,6 +1249,9 @@ export type staging_sessionsUncheckedUpdateManyWithoutOrganizationInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1025,6 +1265,9 @@ export type staging_sessionsCreateManyStarted_byInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1035,12 +1278,16 @@ export type staging_sessionsUpdateWithoutStarted_byInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.organizationsUpdateOneRequiredWithoutStaging_sessionsNestedInput
   target_asset?: Prisma.assetsUpdateOneRequiredWithoutStaging_sessionsNestedInput
   target_job?: Prisma.jobsUpdateOneWithoutStaging_sessionsNestedInput
   items?: Prisma.staging_session_itemsUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateWithoutStarted_byInput = {
@@ -1052,9 +1299,13 @@ export type staging_sessionsUncheckedUpdateWithoutStarted_byInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.staging_session_itemsUncheckedUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUncheckedUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateManyWithoutStarted_byInput = {
@@ -1066,6 +1317,9 @@ export type staging_sessionsUncheckedUpdateManyWithoutStarted_byInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1079,6 +1333,9 @@ export type staging_sessionsCreateManyTarget_assetInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1089,12 +1346,16 @@ export type staging_sessionsUpdateWithoutTarget_assetInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.organizationsUpdateOneRequiredWithoutStaging_sessionsNestedInput
   target_job?: Prisma.jobsUpdateOneWithoutStaging_sessionsNestedInput
   started_by?: Prisma.usersUpdateOneWithoutStarted_staging_sessionsNestedInput
   items?: Prisma.staging_session_itemsUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateWithoutTarget_assetInput = {
@@ -1106,9 +1367,13 @@ export type staging_sessionsUncheckedUpdateWithoutTarget_assetInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.staging_session_itemsUncheckedUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUncheckedUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateManyWithoutTarget_assetInput = {
@@ -1120,6 +1385,9 @@ export type staging_sessionsUncheckedUpdateManyWithoutTarget_assetInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1133,6 +1401,9 @@ export type staging_sessionsCreateManyTarget_jobInput = {
   notes?: string | null
   started_at?: Date | string
   completed_at?: Date | string | null
+  released_at?: Date | string | null
+  released_by_user_id?: string | null
+  release_note?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1143,12 +1414,16 @@ export type staging_sessionsUpdateWithoutTarget_jobInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.organizationsUpdateOneRequiredWithoutStaging_sessionsNestedInput
   target_asset?: Prisma.assetsUpdateOneRequiredWithoutStaging_sessionsNestedInput
   started_by?: Prisma.usersUpdateOneWithoutStarted_staging_sessionsNestedInput
   items?: Prisma.staging_session_itemsUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateWithoutTarget_jobInput = {
@@ -1160,9 +1435,13 @@ export type staging_sessionsUncheckedUpdateWithoutTarget_jobInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.staging_session_itemsUncheckedUpdateManyWithoutStaging_sessionNestedInput
+  events?: Prisma.staging_session_eventsUncheckedUpdateManyWithoutStaging_sessionNestedInput
 }
 
 export type staging_sessionsUncheckedUpdateManyWithoutTarget_jobInput = {
@@ -1174,6 +1453,9 @@ export type staging_sessionsUncheckedUpdateManyWithoutTarget_jobInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   started_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  released_by_user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  release_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1185,10 +1467,12 @@ export type staging_sessionsUncheckedUpdateManyWithoutTarget_jobInput = {
 
 export type Staging_sessionsCountOutputType = {
   items: number
+  events: number
 }
 
 export type Staging_sessionsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | Staging_sessionsCountOutputTypeCountItemsArgs
+  events?: boolean | Staging_sessionsCountOutputTypeCountEventsArgs
 }
 
 /**
@@ -1208,6 +1492,13 @@ export type Staging_sessionsCountOutputTypeCountItemsArgs<ExtArgs extends runtim
   where?: Prisma.staging_session_itemsWhereInput
 }
 
+/**
+ * Staging_sessionsCountOutputType without action
+ */
+export type Staging_sessionsCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.staging_session_eventsWhereInput
+}
+
 
 export type staging_sessionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1219,6 +1510,9 @@ export type staging_sessionsSelect<ExtArgs extends runtime.Types.Extensions.Inte
   notes?: boolean
   started_at?: boolean
   completed_at?: boolean
+  released_at?: boolean
+  released_by_user_id?: boolean
+  release_note?: boolean
   created_at?: boolean
   updated_at?: boolean
   organization?: boolean | Prisma.organizationsDefaultArgs<ExtArgs>
@@ -1226,6 +1520,7 @@ export type staging_sessionsSelect<ExtArgs extends runtime.Types.Extensions.Inte
   target_job?: boolean | Prisma.staging_sessions$target_jobArgs<ExtArgs>
   started_by?: boolean | Prisma.staging_sessions$started_byArgs<ExtArgs>
   items?: boolean | Prisma.staging_sessions$itemsArgs<ExtArgs>
+  events?: boolean | Prisma.staging_sessions$eventsArgs<ExtArgs>
   _count?: boolean | Prisma.Staging_sessionsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["staging_sessions"]>
 
@@ -1239,6 +1534,9 @@ export type staging_sessionsSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   notes?: boolean
   started_at?: boolean
   completed_at?: boolean
+  released_at?: boolean
+  released_by_user_id?: boolean
+  release_note?: boolean
   created_at?: boolean
   updated_at?: boolean
   organization?: boolean | Prisma.organizationsDefaultArgs<ExtArgs>
@@ -1257,6 +1555,9 @@ export type staging_sessionsSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   notes?: boolean
   started_at?: boolean
   completed_at?: boolean
+  released_at?: boolean
+  released_by_user_id?: boolean
+  release_note?: boolean
   created_at?: boolean
   updated_at?: boolean
   organization?: boolean | Prisma.organizationsDefaultArgs<ExtArgs>
@@ -1275,17 +1576,21 @@ export type staging_sessionsSelectScalar = {
   notes?: boolean
   started_at?: boolean
   completed_at?: boolean
+  released_at?: boolean
+  released_by_user_id?: boolean
+  release_note?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type staging_sessionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organization_id" | "target_asset_id" | "target_job_id" | "started_by_user_id" | "status" | "notes" | "started_at" | "completed_at" | "created_at" | "updated_at", ExtArgs["result"]["staging_sessions"]>
+export type staging_sessionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organization_id" | "target_asset_id" | "target_job_id" | "started_by_user_id" | "status" | "notes" | "started_at" | "completed_at" | "released_at" | "released_by_user_id" | "release_note" | "created_at" | "updated_at", ExtArgs["result"]["staging_sessions"]>
 export type staging_sessionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.organizationsDefaultArgs<ExtArgs>
   target_asset?: boolean | Prisma.assetsDefaultArgs<ExtArgs>
   target_job?: boolean | Prisma.staging_sessions$target_jobArgs<ExtArgs>
   started_by?: boolean | Prisma.staging_sessions$started_byArgs<ExtArgs>
   items?: boolean | Prisma.staging_sessions$itemsArgs<ExtArgs>
+  events?: boolean | Prisma.staging_sessions$eventsArgs<ExtArgs>
   _count?: boolean | Prisma.Staging_sessionsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type staging_sessionsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1309,6 +1614,7 @@ export type $staging_sessionsPayload<ExtArgs extends runtime.Types.Extensions.In
     target_job: Prisma.$jobsPayload<ExtArgs> | null
     started_by: Prisma.$usersPayload<ExtArgs> | null
     items: Prisma.$staging_session_itemsPayload<ExtArgs>[]
+    events: Prisma.$staging_session_eventsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1320,6 +1626,9 @@ export type $staging_sessionsPayload<ExtArgs extends runtime.Types.Extensions.In
     notes: string | null
     started_at: Date
     completed_at: Date | null
+    released_at: Date | null
+    released_by_user_id: string | null
+    release_note: string | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["staging_sessions"]>
@@ -1721,6 +2030,7 @@ export interface Prisma__staging_sessionsClient<T, Null = never, ExtArgs extends
   target_job<T extends Prisma.staging_sessions$target_jobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.staging_sessions$target_jobArgs<ExtArgs>>): Prisma.Prisma__jobsClient<runtime.Types.Result.GetResult<Prisma.$jobsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   started_by<T extends Prisma.staging_sessions$started_byArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.staging_sessions$started_byArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.staging_sessions$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.staging_sessions$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$staging_session_itemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  events<T extends Prisma.staging_sessions$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.staging_sessions$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$staging_session_eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1759,6 +2069,9 @@ export interface staging_sessionsFieldRefs {
   readonly notes: Prisma.FieldRef<"staging_sessions", 'String'>
   readonly started_at: Prisma.FieldRef<"staging_sessions", 'DateTime'>
   readonly completed_at: Prisma.FieldRef<"staging_sessions", 'DateTime'>
+  readonly released_at: Prisma.FieldRef<"staging_sessions", 'DateTime'>
+  readonly released_by_user_id: Prisma.FieldRef<"staging_sessions", 'String'>
+  readonly release_note: Prisma.FieldRef<"staging_sessions", 'String'>
   readonly created_at: Prisma.FieldRef<"staging_sessions", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"staging_sessions", 'DateTime'>
 }
@@ -2221,6 +2534,30 @@ export type staging_sessions$itemsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.Staging_session_itemsScalarFieldEnum | Prisma.Staging_session_itemsScalarFieldEnum[]
+}
+
+/**
+ * staging_sessions.events
+ */
+export type staging_sessions$eventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the staging_session_events
+   */
+  select?: Prisma.staging_session_eventsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the staging_session_events
+   */
+  omit?: Prisma.staging_session_eventsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.staging_session_eventsInclude<ExtArgs> | null
+  where?: Prisma.staging_session_eventsWhereInput
+  orderBy?: Prisma.staging_session_eventsOrderByWithRelationInput | Prisma.staging_session_eventsOrderByWithRelationInput[]
+  cursor?: Prisma.staging_session_eventsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Staging_session_eventsScalarFieldEnum | Prisma.Staging_session_eventsScalarFieldEnum[]
 }
 
 /**

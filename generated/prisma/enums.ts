@@ -71,9 +71,10 @@ export type location_type = (typeof location_type)[keyof typeof location_type]
 export const staging_status = {
   draft: 'draft',
   in_progress: 'in_progress',
-  verified: 'verified',
-  failed: 'failed',
-  completed: 'completed'
+  ready: 'ready',
+  short: 'short',
+  dispatched: 'dispatched',
+  closed: 'closed'
 } as const
 
 export type staging_status = (typeof staging_status)[keyof typeof staging_status]
